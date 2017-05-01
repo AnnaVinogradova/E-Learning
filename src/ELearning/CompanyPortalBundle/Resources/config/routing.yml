@@ -1,0 +1,11 @@
+portal_homepage:
+    path:     /
+    defaults: { _controller: "PortalBundle:Index:index" }
+    requirements:
+         methods:  GET
+
+portal_about:
+    path:   /about
+    defaults: { _controller: "PortalBundle:Index:about" }
+    requirements:
+         methods:  GET

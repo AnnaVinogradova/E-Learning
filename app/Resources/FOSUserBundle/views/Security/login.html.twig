@@ -1,0 +1,8 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Log in{% endblock %}
+
+{% block body %}
+    {{ include('@FOSUser/Security/login_content.html.twig') }}
+    <a href="{{ path('fos_user_registration_register') }}">Sign up</a>
+{% endblock body %}
