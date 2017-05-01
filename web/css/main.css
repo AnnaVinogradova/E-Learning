@@ -1,0 +1,53 @@
+/* background of nav menu */
+.navbar-default {
+    background: #41ABFB;
+    border-color: #bce8f1;
+    color: #fff;
+    height: 100px;
+}
+
+/* brand text */
+.navbar-default .navbar-brand {
+    color: #fff;
+    text-shadow: 1px 1px 1px #fff;
+    font-style: italic;
+    font-size: 2em;
+    font-family: Arial;
+}
+
+.navbar-nav li {
+    background: #41ABFB;
+    border-color: #fff;
+}
+
+/* items from menu */
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+    font-size: 1.5em;
+    text-shadow: 1px 1px 0 #CCA4F4;
+}
+/* items with focus */
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #CCA4F4;
+    text-shadow: 1px 1px 0 #bce8f1;
+}
+
+/* CSS styles for mobiles */
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu li {
+        background: #41ABFB;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+        background-color: #41ABFB;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #fff;
+        background-color: #41ABFB;
+    }
+}
