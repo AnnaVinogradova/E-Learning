@@ -3,14 +3,17 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col s12 m8 offset-m2">
-            <h4 class="card-panel teal lighten-2 white-head">Signup</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 m8 offset-m2">
+    <div class="login-form row">
+        <div class="col-md-offset-4 col-md-3  form">
+            <span>Welcome</span>
+            <br>
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <h3>SIGN UP</h3>
             {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+            <div class="row">
+                Already registered? <a href="{{ path('fos_user_security_login') }}">Log in now!</a>
+            </div>
+
         </div>
     </div>
 {% endblock body %}
