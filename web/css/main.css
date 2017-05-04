@@ -174,3 +174,7 @@
 
 
 /*--------- end of login -----*/
+
+.reg-as .thumbnail a {
+    display: block;
+}

@@ -9,3 +9,9 @@ portal_about:
     defaults: { _controller: "PortalBundle:Index:about" }
     requirements:
          methods:  GET
+
+registration_cases:
+    path:   /reg-as
+    defaults: { _controller: "PortalBundle:Registration:index" }
+    requirements:
+         methods:  GET

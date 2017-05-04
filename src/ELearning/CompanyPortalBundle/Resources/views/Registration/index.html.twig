@@ -1,0 +1,26 @@
+{% extends 'PortalBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row reg-as">
+        <div class="col-md-offset-3 col-xs-6 col-sm-4 col-md-3 col-lg3">
+            <div class="thumbnail">
+                <img src="/img/company_icon.png">
+                <div class="caption">
+                    <h2>Company registration</h2>
+                    <p>Register your company and use our service.</p>
+                    <a href="#" class="btn btn-success">Register company</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg3">
+            <div class="thumbnail">
+                <img src="/img/user.png">
+                <div class="caption">
+                    <h2>User registration</h2>
+                    <p> Create user for you and start learning now.</p>
+                    <a href="{{ path('fos_user_registration_register') }}" class="btn btn-success">Create user</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
