@@ -3,6 +3,22 @@
 {% block title %}Log in{% endblock %}
 
 {% block body %}
-    {{ include('@FOSUser/Security/login_content.html.twig') }}
-    <a href="{{ path('fos_user_registration_register') }}">Sign up</a>
+    <div class="login-form row">
+        <div class="col-md-offset-4 col-md-3  form">
+            <span>Welcome</span>
+            <br>
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <h3>LOG IN</h3>
+            {{ include('@FOSUser/Security/login_content.html.twig') }}
+            <div class="row">
+                <div class="col-md-5">
+                    <a href="{{ path('fos_user_resetting_request') }}">Forgot password?</a>
+                </div>
+                <div class="col-md-5">
+                    Don't have an accout? <a href="{{ path('fos_user_registration_register') }}">Register now</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
 {% endblock body %}

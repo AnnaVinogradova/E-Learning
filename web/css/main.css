@@ -124,3 +124,53 @@
 .thumbnail {
     min-height: 465px;
 }
+
+.form {
+    background-color: #FBEFEF;
+    border: 7px solid rgba(255,255,255,.5);
+    border-radius: 10px;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.form form {
+    border-top: 2px solid #766B6B;
+    padding: 10px;
+    margin: 10px auto;
+}
+
+    .form input[type=text], .form input[type=password] {
+        background: #fff;
+        border-radius: 8px;
+        display: block;
+        height: 50px;
+        margin-bottom: 17px;
+        width: 100%;
+    }
+
+.form input[type=submit] {
+    background-color: #766B6B;
+    border-radius: 5px;
+    float: right;
+    font-size: 1.3em;
+    width: 120px;
+    padding: 10px;
+    text-transform: uppercase;
+}
+
+/*---------login-------*/
+
+.login-form {
+    padding: 20px;
+    text-align: center;
+}
+
+.login-form span {
+    text-transform: uppercase;
+    color: #BFBABA;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+
+/*--------- end of login -----*/
