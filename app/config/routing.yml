@@ -1,3 +1,7 @@
+portal_company:
+    resource: "@PortalBundle/Controller/CompanyController.php"
+    type:     annotation
+
 portal:
     resource: "@PortalBundle/Resources/config/routing.yml"
     prefix:   /

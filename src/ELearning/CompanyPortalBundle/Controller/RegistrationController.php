@@ -8,6 +8,7 @@
 
 namespace ELearning\CompanyPortalBundle\Controller;
 
+use ELearning\CompanyPortalBundle\Entity\Company;
 use ELearning\CompanyPortalBundle\Form\CompanyRegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,6 +39,16 @@ class RegistrationController extends Controller
                 $user->setEnabled(1);
                 $user->setPlainPassword($data["password"]);
                 $userManager->updateUser($user);
+
+                $company = new Company();
+                $company->setName($data["name"]);
+                $company->setDescription($data["description"]);
+                $company->setSite($data["site"]);
+                //$company->setLogo();
+                $company->setOwner($user);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($company);
+                $em->flush();
             }
         }
 
