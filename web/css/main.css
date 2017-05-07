@@ -1,3 +1,6 @@
+input {
+    color: #3f4e5e;
+}
 
 /*----------- Navbar menu -----------*/
 /* background of nav menu */
@@ -178,3 +181,61 @@
 .reg-as .thumbnail a {
     display: block;
 }
+
+.title {
+    text-align: center;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.line {
+    border-bottom: 1px solid #DDDCD9;
+    margin: 0 100px;
+}
+
+.company-list {
+    background-color: #F4F1EC;
+    margin: 20px 50px;
+    padding: 50px;
+}
+
+    .company-list p {
+        color: #000;
+        font-size: 1.2em;
+        margin: 10px;
+    }
+
+    .company-list a.site {
+        text-decoration: underline;
+        text-transform: none;
+        font-style: italic;
+        color: #000000;
+    }
+
+    .company-list h1 {
+        background-color: #4E4646;
+        border-radius: 5px;
+        padding: 5px;
+        margin: 10px;
+        text-align: center;
+    }
+
+    .company-list a {
+        color: #D7D0D0;
+        text-transform: uppercase;
+    }
+
+    .company-list img {
+        border: 5px solid #fff;
+        box-shadow: 5px 5px 5px black, -5px -5px 5px black;
+        max-width: 100%;
+    }
+
+    .company-list .course-count {
+        color: #000;
+        font-weight: bold;
+    }
+
+    .company-list .additional-info {
+        padding: 15px 0;
+    }
