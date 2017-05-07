@@ -1,4 +1,6 @@
 /web/bundles/
+/web/images/company_logo/*
+!/web/images/company_logo/default.jpg
 /app/bootstrap.php.cache
 /app/cache/*
 /app/config/parameters.yml

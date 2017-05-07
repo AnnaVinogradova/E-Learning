@@ -8,10 +8,12 @@
 {% block body %}
     {{ form_start(form, {'attr': {'id': 'form-company-create', 'class': 'form-horizontal'}}) }}
 
-        <div class="error-list">
-            {# form_errors(form.logo) #}
-            {{ form_errors(form) }}
-        </div>
+        {% if form_errors(form) or form_errors(form.logo) %}
+            <div class="alert alert-danger">
+                {{  form_errors(form.logo) }}
+                {{ form_errors(form) }}
+            </div>
+        {% endif %}
 
         <h2>Main information</h2>
         <section  data-step="0">
@@ -40,11 +42,14 @@
             <label for="company_name">Company Site</label>
             {{ form_widget(form.site, { 'attr': {'class': 'form-control'} }) }}
         </div>
-
         <div class="form-group">
             <label for="company_description">Company description</label>
             {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
         </div>
+
+        <label for="company_name">Company Logo</label>
+        {{ form_widget(form.logo) }}
+
     </section>
 
     {{ form_end(form) }}

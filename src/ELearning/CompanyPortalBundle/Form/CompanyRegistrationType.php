@@ -11,10 +11,10 @@ namespace ELearning\CompanyPortalBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CompanyRegistrationType extends AbstractType
 {
@@ -26,9 +26,12 @@ class CompanyRegistrationType extends AbstractType
             ->add('password', PasswordType::class)
             ->add('name', 'text')
             ->add('description', TextareaType::class)
-            //->add('logo')
+            ->add('logo', FileType::class, array(
+                'data_class' => null,
+                'label' => 'Post (JPG file)',
+                'required' => false,
+                'empty_data'  => null))
             ->add('site', 'text')
-            //->add('save', SubmitType::class)
         ;
     }
 }

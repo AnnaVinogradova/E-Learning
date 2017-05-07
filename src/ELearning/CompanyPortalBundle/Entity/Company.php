@@ -4,6 +4,7 @@ namespace ELearning\CompanyPortalBundle\Entity;
 
 use AppBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Company
@@ -40,6 +41,9 @@ class Company
      * @var string
      *
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
+     * @Assert\File(mimeTypes={ "image/jpeg" },
+     *      mimeTypesMessage = "Allowed logo type: jpeg"
+     * )
      */
     private $logo;
 

@@ -11,6 +11,7 @@ namespace ELearning\CompanyPortalBundle\Controller;
 use ELearning\CompanyPortalBundle\Entity\Company;
 use ELearning\CompanyPortalBundle\Form\CompanyRegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 class RegistrationController extends Controller
@@ -45,16 +46,41 @@ class RegistrationController extends Controller
                 $company->setName($data["name"]);
                 $company->setDescription($data["description"]);
                 $company->setSite($data["site"]);
-                //$company->setLogo();
+                $file = $data["logo"];
+
+                if ($file == null) {
+                    $fileName = 'default.jpg';
+                } else {
+                    $fileName = $this->saveLogo($file);
+                }
+                $company->setLogo($fileName);
                 $company->setOwner($user);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($company);
                 $em->flush();
+            } else {
+                $form->addError(new FormError('Company user with the same email or name already exists'));
             }
         }
 
         return $this->render('PortalBundle:Registration:register.html.twig', array(
             'form' => $form->createView()
     ));
+    }
+
+    /**
+     * Save logo jpeg file
+     *
+     * @param \Symfony\Component\HttpFoundation\File\File $file
+     * @return string
+     */
+    private function saveLogo($file)
+    {
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $file->move(
+            $this->getParameter('company_logo_directory'),
+            $fileName
+        );
+        return $fileName;
     }
 }
