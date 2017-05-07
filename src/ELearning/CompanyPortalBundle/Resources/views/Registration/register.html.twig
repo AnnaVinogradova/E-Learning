@@ -1,12 +1,65 @@
 {% extends 'PortalBundle::layout.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/jquery.steps.css') }}" />
+{% endblock %}
+
 {% block body %}
+    {{ form_start(form, {'attr': {'id': 'form-company-create', 'class': 'form-horizontal'}}) }}
 
-    {{ form_start(form) }}
-        {{ form_errors(form) }}
+        <div class="error-list">
+            {# form_errors(form.logo) #}
+            {{ form_errors(form) }}
+        </div>
 
-        {{ form_row(form.username) }}
+        <h2>Main information</h2>
+        <section  data-step="0">
+            <div class="form-group">
+                <label for="company_logo">Company user name</label>
+                {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                <label for="company_logo">Company user email</label>
+                {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                <label for="company_logo">Company user password</label>
+                {{ form_widget(form.password, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+        </section>
+
+    <h2>Company information</h2>
+    <section data-step="1">
+        <div class="form-group">
+            <label for="company_name">Company Name</label>
+            {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+
+        <div class="form-group">
+            <label for="company_name">Company Site</label>
+            {{ form_widget(form.site, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+
+        <div class="form-group">
+            <label for="company_description">Company description</label>
+            {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </section>
 
     {{ form_end(form) }}
 
 {% endblock body %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/jquery.formvalidation/0.6.1/js/formValidation.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.formvalidation/0.6.1/js/framework/bootstrap.min.js"></script>
+    <script>
+        window.onload = function (){
+            $.getScript("{{ asset('js/jquery.steps.min.js') }}", function () {
+                $.getScript("{{ asset('js/stepValidation.js') }}");
+            });
+        }
+    </script>
+{% endblock javascripts %}

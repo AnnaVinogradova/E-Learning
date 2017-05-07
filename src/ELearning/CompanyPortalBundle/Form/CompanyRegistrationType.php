@@ -28,7 +28,7 @@ class CompanyRegistrationType extends AbstractType
             ->add('description', TextareaType::class)
             //->add('logo')
             ->add('site', 'text')
-            ->add('save', SubmitType::class)
+            //->add('save', SubmitType::class)
         ;
     }
 }
