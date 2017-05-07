@@ -15,3 +15,7 @@ registration_cases:
     defaults: { _controller: "PortalBundle:Registration:index" }
     requirements:
          methods:  GET
+
+registration_company_reg:
+    path:   /reg-company
+    defaults: { _controller: "PortalBundle:Registration:register" }

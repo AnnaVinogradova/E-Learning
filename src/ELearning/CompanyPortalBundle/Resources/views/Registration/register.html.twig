@@ -1,0 +1,12 @@
+{% extends 'PortalBundle::layout.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.username) }}
+
+    {{ form_end(form) }}
+
+{% endblock body %}
