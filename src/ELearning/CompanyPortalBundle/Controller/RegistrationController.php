@@ -38,6 +38,7 @@ class RegistrationController extends Controller
                 $user->setEmailCanonical($data["email"]);
                 $user->setEnabled(1);
                 $user->setPlainPassword($data["password"]);
+                $user->addRole("ROLE_COMPANY");
                 $userManager->updateUser($user);
 
                 $company = new Company();
