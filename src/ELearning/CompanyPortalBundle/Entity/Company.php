@@ -3,6 +3,7 @@
 namespace ELearning\CompanyPortalBundle\Entity;
 
 use AppBundle\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -59,6 +60,16 @@ class Company
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     private $owner;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\Vacancy", mappedBy="company")
+     */
+    private $vacancies;
+    // ...
+
+    public function __construct() {
+        $this->vacancies = new ArrayCollection();
+    }
 
     /**
      * Get id

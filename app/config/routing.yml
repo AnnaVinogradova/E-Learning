@@ -1,3 +1,7 @@
+portal_vacancy:
+    resource: "@PortalBundle/Controller/VacancyController.php"
+    type:     annotation
+
 portal_company:
     resource: "@PortalBundle/Controller/CompanyController.php"
     type:     annotation
