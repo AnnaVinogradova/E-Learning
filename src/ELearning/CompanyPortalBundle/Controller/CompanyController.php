@@ -130,7 +130,15 @@ class CompanyController extends Controller
      */
     public function profileAction()
     {
-        return $this->render('company/profile.html.twig');
+        $user= $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('PortalBundle:Company')->findOneByOwner($user);
+
+        return $this->render('company/profile.html.twig',
+            array (
+                'user' => $user,
+                'company' => $company
+            ));
     }
 
     /**

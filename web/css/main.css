@@ -2,6 +2,24 @@ input {
     color: #3f4e5e;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 170px !important;
+}
+
+#footer {
+    position: absolute !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 150px;
+    padding-top: 50px;
+}
+
 /*----------- Navbar menu -----------*/
 /* background of nav menu */
 .navbar-default {
@@ -239,3 +257,38 @@ input {
     .company-list .additional-info {
         padding: 15px 0;
     }
+
+.company-profile img {
+    border: 5px solid #fff;
+    box-shadow: 5px 5px 10px black, -5px -5px 10px black;
+    width: 100%;
+}
+
+.company-profile .title {
+    font-size: 1.5em;
+    text-align: left;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.company-profile .user-info, .company-profile .company-info {
+    border: 5px double #000;
+    padding: 15px;
+}
+
+    .company-profile .user-info span, .company-profile .company-info span {
+        font-weight: bold;
+    }
+
+.company-profile .manage-info a {
+    text-decoration: underline;
+}
+
+.company-profile .manage-info .badge {
+    background-color: #232453;
+}
+
+.company-profile .manage-teachers {
+    text-decoration: none !important;
+    margin: 30px 0;
+}
