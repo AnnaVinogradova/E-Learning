@@ -123,6 +123,17 @@ class CompanyController extends Controller
     }
 
     /**
+     * Company profile.
+     *
+     * @Route("/company-profile/", name="company-profile")
+     * @Method("GET")
+     */
+    public function profileAction()
+    {
+        return $this->render('company/profile.html.twig');
+    }
+
+    /**
      * Creates a form to delete a Company entity.
      *
      * @param Company $company The Company entity

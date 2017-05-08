@@ -21,4 +21,12 @@ class IndexController extends Controller
     {
         return $this->render('PortalBundle:Index:about.html.twig');
     }
+
+    public function profileAction()
+    {
+        if ($this->get('security.context')->isGranted('ROLE_COMPANY')) {
+            return $this->redirectToRoute('company-profile');
+        }
+        return $this->redirectToRoute('fos_user_profile_show');
+    }
 }

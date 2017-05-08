@@ -10,6 +10,12 @@ portal_about:
     requirements:
          methods:  GET
 
+portal_profile:
+    path:   /profile-cases
+    defaults: { _controller: "PortalBundle:Index:profile" }
+    requirements:
+         methods:  GET
+
 registration_cases:
     path:   /reg-as
     defaults: { _controller: "PortalBundle:Registration:index" }

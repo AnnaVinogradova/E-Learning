@@ -18,6 +18,7 @@ class VacancyType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('salary')
+            ->add('categories', null, array('expanded' => "true", "multiple" => "true"))
         ;
     }
     

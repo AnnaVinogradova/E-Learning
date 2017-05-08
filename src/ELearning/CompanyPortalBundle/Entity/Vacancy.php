@@ -2,6 +2,7 @@
 
 namespace ELearning\CompanyPortalBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +48,16 @@ class Vacancy
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
     private $company;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\Category", inversedBy="vacancies")
+     * @ORM\JoinTable(name="vacancies_categories")
+     */
+    private $categories;
+
+    public function __construct() {
+        $this->categories = new ArrayCollection();
+    }
 
 
     /**
@@ -145,6 +156,25 @@ class Vacancy
     public function setCompany($company)
     {
         $this->company = $company;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
+     * @param Category $category
+     * @return $this
+     */
+    public function addCategory($category)
+    {
+        $this->categories = $category;
+
+        return $this;
     }
 }
 

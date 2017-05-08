@@ -2,6 +2,7 @@
 
 namespace ELearning\CompanyPortalBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +28,15 @@ class Category
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\Vacancy", mappedBy="categories")
+     */
+    private $vacancies;
+
+    public function __construct() {
+        $this->vacancies = new ArrayCollection();
+    }
 
 
     /**
@@ -60,6 +70,10 @@ class Category
      */
     public function getName()
     {
+        return $this->name;
+    }
+
+    public function __toString() {
         return $this->name;
     }
 }

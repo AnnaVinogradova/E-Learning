@@ -41,12 +41,16 @@ class VacancyController extends Controller
      */
     public function newAction(Request $request)
     {
+        $user= $this->get('security.context')->getToken()->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('PortalBundle:Company')->findOneByOwner($user);
+
         $vacancy = new Vacancy();
         $form = $this->createForm(new VacancyType(), $vacancy);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $vacancy->setCompany($company);
             $em->persist($vacancy);
             $em->flush();
 
