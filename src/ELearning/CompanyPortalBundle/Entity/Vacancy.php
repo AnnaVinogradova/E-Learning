@@ -44,6 +44,12 @@ class Vacancy
     private $salary;
 
     /**
+     * @ORM\Column(type="boolean", options={"default" : 0})
+     */
+    protected $active;
+
+
+    /**
      * @ORM\ManyToOne(targetEntity="ELearning\CompanyPortalBundle\Entity\Company", inversedBy="vacancies")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
@@ -140,6 +146,22 @@ class Vacancy
     public function getSalary()
     {
         return $this->salary;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param mixed $active
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
     }
 
     /**
