@@ -65,7 +65,11 @@ class Company
      * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\Vacancy", mappedBy="company")
      */
     private $vacancies;
-    // ...
+
+    /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\News", mappedBy="company")
+     */
+    private $news;
 
     public function __construct() {
         $this->vacancies = new ArrayCollection();
@@ -185,6 +189,22 @@ class Company
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNews()
+    {
+        return $this->news;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVacancies()
+    {
+        return $this->vacancies;
     }
 }
 

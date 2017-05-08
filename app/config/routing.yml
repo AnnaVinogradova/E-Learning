@@ -1,3 +1,7 @@
+portal_news:
+    resource: "@PortalBundle/Controller/NewsController.php"
+    type:     annotation
+
 portal_vacancy:
     resource: "@PortalBundle/Controller/VacancyController.php"
     type:     annotation
