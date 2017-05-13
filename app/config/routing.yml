@@ -1,3 +1,7 @@
+portal_course:
+    resource: "@PortalBundle/Controller/CourseController.php"
+    type:     annotation
+
 portal_news:
     resource: "@PortalBundle/Controller/NewsController.php"
     type:     annotation

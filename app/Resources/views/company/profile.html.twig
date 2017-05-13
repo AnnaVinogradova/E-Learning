@@ -33,8 +33,8 @@
                     <a href="{{ path('news_new') }}" class="btn btn-link">Add news</a><br>
 
                     <span class="glyphicon glyphicon-book"></span>
-                    Count of courses: <a href="" class="badge">50</a>;
-                    <a href="" class="btn btn-link">Create new course</a><br>
+                    Count of courses: <a href="{{ path('course_index') }}" class="badge">{{ company.courses|length }}</a>;
+                    <a href="{{ path('course_new') }}" class="btn btn-link">Create new course</a><br>
                     <span class="glyphicon glyphicon-briefcase"></span>
 
                     Count of vacancies: <a href="{{ path('vacancy_index') }}" class="badge">{{ company.vacancies|length }}</a>;
