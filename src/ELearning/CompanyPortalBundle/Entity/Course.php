@@ -62,6 +62,11 @@ class Course
      */
     private $company;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\Flow", mappedBy="course")
+     */
+    private $flows;
+
 
     /**
      * Get id

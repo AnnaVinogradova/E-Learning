@@ -1,3 +1,7 @@
+portal_flow:
+    resource: "@PortalBundle/Controller/FlowController.php"
+    type:     annotation
+
 portal_course:
     resource: "@PortalBundle/Controller/CourseController.php"
     type:     annotation

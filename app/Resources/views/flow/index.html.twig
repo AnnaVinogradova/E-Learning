@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Flow list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for flow in flows %}
+            <tr>
+                <td><a href="{{ path('flow_show', { 'id': flow.id }) }}">{{ flow.id }}</a></td>
+                <td>{% if flow.date %}{{ flow.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('flow_show', { 'id': flow.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('flow_edit', { 'id': flow.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('flow_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

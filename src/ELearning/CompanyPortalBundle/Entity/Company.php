@@ -78,6 +78,8 @@ class Company
 
     public function __construct() {
         $this->vacancies = new ArrayCollection();
+        $this->news = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     /**
