@@ -1,0 +1,124 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-offset-3 col-md-4 teacher-info">
+            <div class="col-md-2">
+                <img src="/img/teacher.svg" alt="">
+            </div>
+            <div class="col-md-9">
+                <p>Name: Professor Jane</p>
+                <p>Experience: 10 years</p>
+                <p>Qualification: the Bachelor of Education</p>
+                <p>Contacts: jane_teacher@gmail.com</p>
+                <p>Your company: Modern education</p>
+            </div>
+            <a href="{{ path('fos_user_security_logout') }}" class="col-md-1 circle">
+                <span class="glyphicon glyphicon-log-out"></span>
+            </a>
+        </div>
+    </div>
+
+    <div class="row teacher-courses">
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+            <div class="thumbnail">
+                <img src="/images/course_logo/camera-keys.jpg">
+                <div class="caption">
+                    <h2><a href="">Photography</a></h2>
+                </div>
+                <span class="glyphicon glyphicon-book"></span>
+                <a href="">Active Homeworks: <span class="badge">5</span></a></br>
+                <span class="glyphicon glyphicon-flag"></span>
+                <a href="">Active Exams: <span class="badge">0</span></a></br>
+                <div class="row bottom">
+                    <a class="col-md-3">
+                        <span class="glyphicon glyphicon-comment"></span>
+                    </a>
+                    <div class="col-md-9">
+                            <a href="" class="btn btn-primary pull-right">Manage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+            <div class="thumbnail">
+                <img src="/images/course_logo/rubyonrails.png">
+                <div class="caption">
+                    <h2><a href="">Ruby on Rails</a></h2>
+                </div>
+                <span class="glyphicon glyphicon-book"></span>
+                <a href="">Active Homeworks: <span class="badge">15</span></a></br>
+                <span class="glyphicon glyphicon-flag"></span>
+                <a href="">Active Exams: <span class="badge">10</span></a></br>
+                <div class="row bottom">
+                    <a class="col-md-3">
+                        <span class="glyphicon glyphicon-comment"></span>
+                    </a>
+                    <div class="col-md-9">
+                        <a href="" class="btn btn-primary pull-right">Manage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+            <div class="thumbnail">
+                <img src="/images/course_logo/derivative.png">
+                <div class="caption">
+                    <h2><a href="">Derivative</a></h2>
+                </div>
+                <span class="glyphicon glyphicon-book"></span>
+                <a href="">Active Homeworks: <span class="badge">50</span></a></br>
+                <span class="glyphicon glyphicon-flag"></span>
+                <a href="">Active Exams: <span class="badge">20</span></a></br>
+                <div class="row bottom">
+                    <a class="col-md-3">
+                        <span class="glyphicon glyphicon-comment"></span>
+                    </a>
+                    <div class="col-md-9">
+                        <a href="" class="btn btn-primary pull-right">Manage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+            <div class="thumbnail">
+                <img src="/images/course_logo/space.png">
+                <div class="caption">
+                    <h2><a href="">Space</a></h2>
+                </div>
+                <span class="glyphicon glyphicon-book"></span>
+                <a href="">Active Homeworks: <span class="badge">15</span></a></br>
+                <span class="glyphicon glyphicon-flag"></span>
+                <a href="">Active Exams: <span class="badge">4</span></a></br>
+                <div class="row bottom">
+                    <a class="col-md-3">
+                        <span class="glyphicon glyphicon-comment"></span>
+                    </a>
+                    <div class="col-md-9">
+                        <a href="" class="btn btn-primary pull-right">Manage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
+            <div class="thumbnail">
+                <img src="/images/course_logo/art-first-steps.png">
+                <div class="caption">
+                    <h2><a href="">Art - first steps</a></h2>
+                </div>
+                <span class="glyphicon glyphicon-book"></span>
+                <a href="">Active Homeworks: <span class="badge">0</span></a></br>
+                <span class="glyphicon glyphicon-flag"></span>
+                <a href="">Active Exams: <span class="badge">0</span></a></br>
+                <div class="row bottom">
+                    <a class="col-md-3">
+                        <span class="glyphicon glyphicon-comment"></span>
+                    </a>
+                    <div class="col-md-9">
+                        <a href="" class="btn btn-primary pull-right">Manage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

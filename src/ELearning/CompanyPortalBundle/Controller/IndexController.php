@@ -27,6 +27,12 @@ class IndexController extends Controller
         if ($this->get('security.context')->isGranted('ROLE_COMPANY')) {
             return $this->redirectToRoute('company-profile');
         }
-        return $this->redirectToRoute('fos_user_profile_show');
+        return $this->redirectToRoute('teacher_profile');
+        //return $this->redirectToRoute('fos_user_profile_show');
+    }
+
+    public function teacherProfileAction()
+    {
+        return $this->render('PortalBundle:Index:teacherProfile.html.twig');
     }
 }

@@ -345,3 +345,60 @@ body {
 .user-courses-list .thumbnail a {
     text-decoration: underline;
 }
+
+.teacher-info {
+    background-color: #2092BC;
+    padding: 10px;
+}
+
+.teacher-info .circle {
+    color: #000;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 3px #000;
+    background-color: #fff;
+    padding-top: 7px;
+    padding-right: 10px;
+    padding-left: 5px;
+}
+
+.teacher-courses {
+    padding-top: 50px;
+}
+
+.teacher-courses .thumbnail {
+    background: #bce8f1;
+    min-height: 150px;
+    padding: 10px;
+}
+
+.teacher-courses .thumbnail h2 {
+    font-size: 1.4em;
+}
+
+.teacher-courses .thumbnail p {
+    min-height: 40px;
+}
+
+.teacher-courses .bottom {
+    padding: 10px 0;
+}
+
+.teacher-courses .bottom .btn {
+    margin-top: 7px;
+}
+
+.teacher-courses .bottom span {
+    background-color: #41ABFB;
+    box-shadow: 2px 2px 2px #000;
+    color: #000;
+    padding: 14px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.teacher-courses .bottom span:hover {
+    background-color: #ffff00;
+}

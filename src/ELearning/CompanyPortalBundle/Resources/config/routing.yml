@@ -10,6 +10,12 @@ portal_about:
     requirements:
          methods:  GET
 
+teacher_profile:
+    path:   /profile-teacher
+    defaults: { _controller: "PortalBundle:Index:teacherProfile" }
+    requirements:
+         methods:  GET
+
 portal_profile:
     path:   /profile-cases
     defaults: { _controller: "PortalBundle:Index:profile" }
