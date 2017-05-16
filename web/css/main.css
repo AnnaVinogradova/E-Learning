@@ -292,3 +292,56 @@ body {
     text-decoration: none !important;
     margin: 30px 0;
 }
+
+.user-profile .user-info {
+    border: 5px double #000;
+    padding: 15px;
+}
+
+.user-profile .user-info a {
+    margin-top: 20px;
+}
+
+.user-profile .user-info img {
+    width: 100%;
+}
+
+.user-profile .user-info p a {
+    float: right;
+    margin-top: 0;
+    text-decoration: underline;
+}
+
+.user-profile .circle {
+    box-shadow: 2px 2px 3px #000;
+    border-radius: 50%;
+    font-size: 2.7em;
+    height: 100px;
+    padding-top: 25px;
+    text-align: center;
+    width: 100px;
+}
+
+.yellow {
+    background-color: #ffff00;
+}
+
+.blue {
+    background-color: #2092BC;
+}
+
+.green {
+    background-color: #3FBC20;
+}
+
+.user-courses-list {
+    padding-top: 50px;
+}
+
+.user-courses-list .thumbnail {
+    min-height: 150px;
+}
+
+.user-courses-list .thumbnail a {
+    text-decoration: underline;
+}
