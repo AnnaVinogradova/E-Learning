@@ -38,7 +38,10 @@
                     <span class="glyphicon glyphicon-briefcase"></span>
 
                     Count of vacancies: <a href="{{ path('vacancy_index') }}" class="badge">{{ company.vacancies|length }}</a>;
-                    <a href="{{ path('vacancy_new') }}" class="btn btn-link">Add new vacancy</a>
+                    <a href="{{ path('vacancy_new') }}" class="btn btn-link">Add new vacancy</a><br>
+
+                    <span class="glyphicon glyphicon-flag"></span>
+                    Sertificate requests: <a href="{{ path('course_index') }}" class="badge">1</a>
                 </div>
                 <div class="col-md-4">
                     <a href="" class="btn btn-success manage-teachers">
