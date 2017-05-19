@@ -1,16 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Vacancy creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('vacancy_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="row crud-section">
+        <h1>Vacancy creation</h1>
+        <div class="row">
+            <a class="col-md-offset-1 btn btn-link" href="{{ path('vacancy_index') }}">Back to the list</a>
+        </div>
+        <div class="row">
+            {{ form_start(form, { 'attr': {'class': 'col-md-offset-1 col-md-8'} }) }}
+            <div class="form-group">
+                <label>Name</label>
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                <label>Salary $</label>
+                {{ form_widget(form.salary, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                <label>Active</label>
+                {{ form_widget(form.active) }}
+            </div>
+            <div class="category-checker">
+                <label>Choose categories for your vacancy:</label>
+                {{ form_widget(form.categories) }}
+            </div>
+            <input class="btn btn-info col-md-1" type="submit" value="Create">
+            {{ form_end(form) }}
+        </div>
+        <div class="row"></div>
+    </div>
+    </div>
 {% endblock %}

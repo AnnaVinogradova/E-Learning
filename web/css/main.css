@@ -462,3 +462,44 @@ form .btn {
 .links {
     margin-top: 20px;
 }
+
+input[type=checkbox] {
+    background-color: #fff;
+}
+
+.category-checker label {
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 3px;
+}
+
+.vacancy {
+    font-size: 1.5em;
+}
+
+.vacancy h4 {
+    font-style: italic;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.category-tag {
+    margin-top: 20px;
+}
+
+.category-tag span {
+    padding: 5px 10px;
+    margin-right: 10px;
+    background-color: #EACFCD;
+    border-radius: 10px;
+}
+
+.category-list {
+    text-align: center;
+    padding: 20px;
+}
+
+.category-list .selected {
+    background-color: #C692E8;
+    box-shadow: 2px 1px 3px #000;
+}

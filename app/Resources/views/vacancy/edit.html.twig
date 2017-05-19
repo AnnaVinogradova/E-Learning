@@ -1,21 +1,36 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Vacancy edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('vacancy_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row crud-section">
+        <h1>Vacancy edit</h1>
+        <div class="row">
+            <a class="col-md-offset-1 btn btn-link" href="{{ path('vacancy_index') }}">Back to the list</a>
+        </div>
+        <div class="row">
+            {{ form_start(edit_form, { 'attr': {'class': 'col-md-offset-1 col-md-8'} }) }}
+            <div class="form-group">
+                <label>Name</label>
+                {{ form_widget(edit_form.name, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                {{ form_widget(edit_form.description, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                <label>Salary $</label>
+                {{ form_widget(edit_form.salary, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                <label>Active</label>
+                {{ form_widget(edit_form.active) }}
+            </div>
+            <div class="category-checker">
+                <label>Choose categories for your vacancy:</label>
+                {{ form_widget(edit_form.categories) }}
+            </div>
+            <input class="btn btn-info col-md-1" type="submit" value="Edit">
+            {{ form_end(edit_form) }}
+        </div>
+        <div class="row"></div>
+    </div>
 {% endblock %}

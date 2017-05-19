@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+        <div class="row category-tag category-list">
+            {% for item in categories %}
+                <span
+                {% if selected is defined and item.id == selected.id %}
+                    class="selected"
+                {% endif %}
+                ><a href="{{ path("vacancy_search", {id:item.id}) }}">{{ item.name }}</a></span>
+            {% endfor %}
+            <span><a href="{{ path("vacancy_public") }}">All</a></span>
+        </div>
+
+        <div class="col-md-offset-1 col-md-10">
+            {% for item in vacancies %}
+                {% if item.active %}
+                    <div class="news-item">
+                        <div class="company">Published by: <a href="{{ path('company_show', {id: item.company.id}) }}">{{ item.company.name }}</a></div>
+                        <div class="company">Vacancy: {{ item.name }}</div>
+                        <a class="btn btn-link pull-right" href="{{ path("vacancy_show", {id: item.id}) }}">View this vacancy</a>
+                        <div class="category-tag">
+                            {% for category in item.categories %}
+                                <span>
+                                    <a href="{{ path("vacancy_search", {id:category.id}) }}">{{ category.name }}</a>
+                                </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock body %}

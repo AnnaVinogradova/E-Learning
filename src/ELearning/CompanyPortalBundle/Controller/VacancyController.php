@@ -2,6 +2,7 @@
 
 namespace ELearning\CompanyPortalBundle\Controller;
 
+use ELearning\CompanyPortalBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -17,19 +18,57 @@ use ELearning\CompanyPortalBundle\Form\VacancyType;
 class VacancyController extends Controller
 {
     /**
-     * Lists all Vacancy entities.
+     * Lists all Vacancy entities for company.
      *
      * @Route("/", name="vacancy_index")
      * @Method("GET")
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $vacancies = $em->getRepository('PortalBundle:Vacancy')->findAll();
+        $company = $this->getCompany();
+        foreach ($company->getVacancies() as $vacancy) {
+            $vacancy->form = $this->createDeleteForm($vacancy)->createView();
+        }
 
         return $this->render('vacancy/index.html.twig', array(
+            'company' => $company,
+        ));
+    }
+
+    /**
+     * Lists all Vacancies entities.
+     *
+     * @Route("/list", name="vacancy_public")
+     * @Method("GET")
+     */
+    public function publicListAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $vacancies = $em->getRepository('PortalBundle:Vacancy')->findAll();
+        $categories = $em->getRepository('PortalBundle:Category')->findAll();
+
+        return $this->render('vacancy/publicList.html.twig', array(
             'vacancies' => $vacancies,
+            'categories' => $categories
+        ));
+    }
+
+    /**
+     * Lists Vacancies entities by category.
+     *
+     * @Route("/search/{id}", name="vacancy_search")
+     * @Method("GET")
+     */
+    public function findAction(Category $category)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $vacancies = $em->getRepository('PortalBundle:Vacancy')->getVacanciesByCategory($category);
+        $categories = $em->getRepository('PortalBundle:Category')->findAll();
+
+        return $this->render('vacancy/publicList.html.twig', array(
+            'vacancies' => $vacancies,
+            'categories' => $categories,
+            'selected' => $category
         ));
     }
 
@@ -41,9 +80,8 @@ class VacancyController extends Controller
      */
     public function newAction(Request $request)
     {
-        $user= $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        $company = $em->getRepository('PortalBundle:Company')->findOneByOwner($user);
+        $company = $this->getCompany();
 
         $vacancy = new Vacancy();
         $form = $this->createForm(new VacancyType(), $vacancy);
@@ -71,11 +109,8 @@ class VacancyController extends Controller
      */
     public function showAction(Vacancy $vacancy)
     {
-        $deleteForm = $this->createDeleteForm($vacancy);
-
         return $this->render('vacancy/show.html.twig', array(
             'vacancy' => $vacancy,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -87,7 +122,10 @@ class VacancyController extends Controller
      */
     public function editAction(Request $request, Vacancy $vacancy)
     {
-        $deleteForm = $this->createDeleteForm($vacancy);
+        if ($this->getCompany() != $vacancy->getCompany()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $editForm = $this->createForm(new VacancyType(), $vacancy);
         $editForm->handleRequest($request);
 
@@ -96,13 +134,12 @@ class VacancyController extends Controller
             $em->persist($vacancy);
             $em->flush();
 
-            return $this->redirectToRoute('vacancy_edit', array('id' => $vacancy->getId()));
+            return $this->redirectToRoute('vacancy_index');
         }
 
         return $this->render('vacancy/edit.html.twig', array(
             'vacancy' => $vacancy,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -114,6 +151,10 @@ class VacancyController extends Controller
      */
     public function deleteAction(Request $request, Vacancy $vacancy)
     {
+        if ($this->getCompany() != $vacancy->getCompany()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $form = $this->createDeleteForm($vacancy);
         $form->handleRequest($request);
 
@@ -140,5 +181,17 @@ class VacancyController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    private function getCompany()
+    {
+        $user= $this->get('security.context')->getToken()->getUser();
+        if (! $this->get('security.context')->isGranted('ROLE_COMPANY')) {
+            throw $this->createAccessDeniedException();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('PortalBundle:Company')->findOneByOwner($user);
+
+        return $company;
     }
 }

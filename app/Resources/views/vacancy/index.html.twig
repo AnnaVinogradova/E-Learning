@@ -1,43 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Vacancy list</h1>
+    <h1>Vacancies created by {{ company.name }}</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Salary</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for vacancy in vacancies %}
-            <tr>
-                <td><a href="{{ path('vacancy_show', { 'id': vacancy.id }) }}">{{ vacancy.id }}</a></td>
-                <td>{{ vacancy.name }}</td>
-                <td>{{ vacancy.description }}</td>
-                <td>{{ vacancy.salary }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('vacancy_show', { 'id': vacancy.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('vacancy_edit', { 'id': vacancy.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('vacancy_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+    <div class="col-md-offset-1 col-md-10 list">
+        <a class="btn btn-primary" href="{{ path('vacancy_new') }}">Create vacancy</a>
+            <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for vacancy in company.vacancies %}
+                <tr {% if vacancy.active %} class="active"{% else %} class="danger"{% endif %}>
+                    <td><a href="{{ path('vacancy_show', { 'id': vacancy.id }) }}">{{ vacancy.id }}</a></td>
+                    <td>{{ vacancy.name }}</td>
+                    <td>{{ vacancy.description|length > 50 ? vacancy.description|slice(0, 50) ~ '...' : vacancy.description }}</td>
+                    <td>{{ vacancy.salary }}$</td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('vacancy_show', { 'id': vacancy.id }) }}">Show</a>
+                        <a class="btn btn-warning" href="{{ path('vacancy_edit', { 'id': vacancy.id }) }}">Edit</a>
+                        {{ form_start(vacancy.form, { 'attr': {'class': 'delete-action'} }) }}
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                        {{ form_end(vacancy.form) }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

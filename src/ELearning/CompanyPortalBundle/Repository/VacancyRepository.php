@@ -10,4 +10,11 @@ namespace ELearning\CompanyPortalBundle\Repository;
  */
 class VacancyRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getVacanciesByCategory($category)
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb->join('p.categories', 'c')
+            ->where($qb->expr()->eq('c.id', $category->getId()));
+        return $qb->getQuery()->getResult();
+    }
 }
