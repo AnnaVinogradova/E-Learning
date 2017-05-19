@@ -1,40 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>News</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ news.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ news.title }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{% if news.date %}{{ news.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ news.content }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('news_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('news_edit', { 'id': news.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row news">
+        <h1>{{ news.title }}</h1>
+        <div class="col-md-offset-1 col-md-10 content">
+            {{ news.content|raw }}
+            <div class="row">
+                Published by <a href="{{ path('company_show', {id: news.company.id}) }}">{{ news.company.name }}</a>
+                <span class="pull-right date">{{ news.date|date('m/d/Y H:i:s') }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="links">
+        <a href="{{ path("news_public") }}" class="col-md-offset-1 btn btn-default">Back to list</a>
+        {% if is_granted("ROLE_COMPANY") %}
+            <a href="{{ path("news_index") }}" class="col-md-offset-1 btn btn-default">Back to my news list</a>
+        {% endif %}
+    </div>
 {% endblock %}

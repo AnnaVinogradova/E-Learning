@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+        <div class="col-md-offset-1 col-md-10">
+            {% for item in news %}
+                <div class="news-item">
+                    <span class="pull-left company">Published by <a href="{{ path('company_show', {id: item.company.id}) }}">{{ item.company.name }}</a></span>
+                    <a href="{{ path("news_show", {id: item.id}) }}"><h1>{{ item.title }}</h1></a>
+                    <span class="pull-right date">{{ item.date|date('m/d/Y H:i:s')  }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock body %}

@@ -2,12 +2,14 @@
 
 namespace ELearning\CompanyPortalBundle\Controller;
 
+use ELearning\CompanyPortalBundle\Entity\Company;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use ELearning\CompanyPortalBundle\Entity\News;
 use ELearning\CompanyPortalBundle\Form\NewsType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * News controller.
@@ -17,18 +19,36 @@ use ELearning\CompanyPortalBundle\Form\NewsType;
 class NewsController extends Controller
 {
     /**
-     * Lists all News entities.
+     * Lists all company entities.
      *
      * @Route("/", name="news_index")
      * @Method("GET")
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $news = $em->getRepository('PortalBundle:News')->findAll();
+        /* @var Company */
+        $company = $this->getCompany();
+        foreach ($company->getNews() as $news) {
+            $news->form = $this->createDeleteForm($news)->createView();
+        }
 
         return $this->render('news/index.html.twig', array(
+            'company' => $company,
+        ));
+    }
+
+    /**
+     * Lists all News entities.
+     *
+     * @Route("/list", name="news_public")
+     * @Method("GET")
+     */
+    public function publicListAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $news = $em->getRepository('PortalBundle:News')->findAll();
+
+        return $this->render('news/publicList.html.twig', array(
             'news' => $news,
         ));
     }
@@ -41,15 +61,16 @@ class NewsController extends Controller
      */
     public function newAction(Request $request)
     {
-        $user= $this->get('security.context')->getToken()->getUser();
         $em = $this->getDoctrine()->getManager();
-        $company = $em->getRepository('PortalBundle:Company')->findOneByOwner($user);
+        $company = $this->getCompany();
 
         $news = new News();
         $form = $this->createForm(new NewsType(), $news);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $time = new \DateTime("now");
+            $news->setDate($time);
             $news->setCompany($company);
             $em->persist($news);
             $em->flush();
@@ -87,7 +108,10 @@ class NewsController extends Controller
      */
     public function editAction(Request $request, News $news)
     {
-        $deleteForm = $this->createDeleteForm($news);
+        if ($this->getCompany() != $news->getCompany()) {
+            throw $this->createAccessDeniedException();
+        }
+
         $editForm = $this->createForm(new NewsType(), $news);
         $editForm->handleRequest($request);
 
@@ -96,13 +120,12 @@ class NewsController extends Controller
             $em->persist($news);
             $em->flush();
 
-            return $this->redirectToRoute('news_edit', array('id' => $news->getId()));
+            return $this->redirectToRoute('news_index');
         }
 
         return $this->render('news/edit.html.twig', array(
             'news' => $news,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -114,6 +137,9 @@ class NewsController extends Controller
      */
     public function deleteAction(Request $request, News $news)
     {
+        if ($this->getCompany() != $news->getCompany()) {
+            throw $this->createAccessDeniedException();
+        }
         $form = $this->createDeleteForm($news);
         $form->handleRequest($request);
 
@@ -141,4 +167,17 @@ class NewsController extends Controller
             ->getForm()
         ;
     }
+
+    private function getCompany()
+    {
+        $user= $this->get('security.context')->getToken()->getUser();
+        if (! $this->get('security.context')->isGranted('ROLE_COMPANY')) {
+            throw $this->createAccessDeniedException();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('PortalBundle:Company')->findOneByOwner($user);
+
+        return $company;
+    }
+
 }

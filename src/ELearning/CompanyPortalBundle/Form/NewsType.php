@@ -17,7 +17,6 @@ class NewsType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('date', 'datetime')
             ->add('content', CKEditorType::class, array(
                 'config' => array('toolbar' => 'full')))
         ;

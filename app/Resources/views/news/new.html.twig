@@ -1,16 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>News creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('news_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="row crud-section">
+        <h1>News creation</h1>
+        <div class="row">
+            <a class="col-md-offset-1 btn btn-link" href="{{ path('news_index') }}">Back to the list</a>
+            </div>
+            <div class="row">
+                {{ form_start(form, { 'attr': {'class': 'col-md-offset-1 col-md-8'} }) }}
+                <div class="form-group">
+                    <label>News title</label>
+                    {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+                <div class="form-group">
+                    <label>Content</label>
+                    {{ form_widget(form.content, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+                <input class="btn btn-info col-md-1" type="submit" value="Create">
+                {{ form_end(form) }}
+            </div>
+            <div class="row"></div>
+        </div>
+    </div>
 {% endblock %}

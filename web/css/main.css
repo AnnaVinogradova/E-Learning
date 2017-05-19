@@ -402,3 +402,63 @@ body {
 .teacher-courses .bottom span:hover {
     background-color: #ffff00;
 }
+
+.list h1 {
+    margin: 20px auto;
+}
+
+.delete-action {
+    display: inline-block;
+}
+
+h1 {
+    text-align: center;
+}
+
+.crud-section {
+    background: #F9F6F6;
+    box-shadow: 12px 12px 13px #D5D3D3, -12px -12px 13px #D5D3D3;
+    margin: -20px 0;
+}
+
+form .btn {
+    margin: 5px;
+}
+
+.news-item {
+    background: #F8F8F7;
+    box-shadow: 3px 3px 5px #B5B5B5;
+    min-height: 100px;
+    margin: 30px 40px;
+    padding: 20px;
+}
+
+.news-item .company {
+    font-style: italic;
+    font-weight: bold;
+    text-shadow: 1px 0 1px #000;
+}
+
+.news-item .company a {
+    font-size: 1.5em;
+}
+
+.date {
+    font-style: italic;
+    color: #3f4e5e;
+    text-shadow: 1px 0 1px #3f4e5e;
+}
+
+.news .content {
+    background-color: #F8F8F7;
+    box-shadow: 5px 5px 10px #DFDEDD;
+    padding: 20px;
+}
+
+.news h1 {
+    margin-bottom: 50px;
+}
+
+.links {
+    margin-top: 20px;
+}
