@@ -17,4 +17,15 @@ class VacancyRepository extends \Doctrine\ORM\EntityRepository
             ->where($qb->expr()->eq('c.id', $category->getId()));
         return $qb->getQuery()->getResult();
     }
+
+    public function getVacancyRecommendation($company)
+    {
+        $qb = $this->createQueryBuilder('v');
+        $qb->where('v.company = '. $company->getId())
+            ->setMaxResults(3)
+            ->add('orderBy','v.id DESC');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

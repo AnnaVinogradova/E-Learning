@@ -67,11 +67,12 @@ class CompanyController extends Controller
      */
     public function showAction(Company $company)
     {
-        $deleteForm = $this->createDeleteForm($company);
+        $em = $this->getDoctrine()->getManager();
+        $vacancies = $em->getRepository('PortalBundle:Vacancy')->getVacancyRecommendation($company);
 
         return $this->render('company/show.html.twig', array(
             'company' => $company,
-            'delete_form' => $deleteForm->createView(),
+            'vacancyRecommend' => $vacancies
         ));
     }
 
