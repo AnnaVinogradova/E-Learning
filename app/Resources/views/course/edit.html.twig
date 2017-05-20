@@ -33,7 +33,30 @@
             {{ form_end(edit_form) }}
         </div>
         <div class="row"></div>
+        <div class="">
+            <a class="btn btn-primary" href="{{ path('flow_new', {id: course.id}) }}">Add new flow</a>
+            <table class="table table-bordered col-md-3">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for flow in course.flows %}
+                    <tr {% if date(flow.date) < date() %} class="danger"{% else %} class="active"{% endif %}>
+                        <td><a href="{{ path('flow_edit', { 'id': flow.id }) }}">{{ flow.id }}</a></td>
+                        <td>{% if flow.date %}{{ flow.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>
+                            <a class="btn btn-warning" href="{{ path('flow_edit', { 'id': flow.id, 'courseId': course.id }) }}">edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <a href="{{ path('flow_new') }}">Add new flow</a>
+
 {% endblock %}

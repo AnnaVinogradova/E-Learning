@@ -1,21 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Flow edit</h1>
+    <h1>Flow</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+    <div class="row crud-section">
+        <a class="col-md-offset-1 btn btn-link" href="{{ path('course_edit', {id: course.id}) }}">Back to the list</a>
+        <div class="col-md-offset-5 col-md-3 flow-creation">
+            {{ form_start(edit_form) }}
+            <div class="form-group">
+                <label>Select date when next flow must start</label>
+                {{ form_widget(edit_form.date) }}
+            </div>
+            <input class="btn btn-info col-md-5" type="submit" value="Update">
+            {{ form_end(edit_form) }}
+        </div>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('flow_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
 {% endblock %}

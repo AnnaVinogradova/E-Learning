@@ -10,4 +10,17 @@ namespace ELearning\CompanyPortalBundle\Repository;
  */
 class FlowRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getOpenFlow($course)
+    {
+        $qb = $this->createQueryBuilder('f');
+        $qb->where('f.course = '. $course->getId())
+            ->andWhere(
+                    $qb->expr()->gte('f.date', ':date_now')
+            )
+            ->setParameters(array(
+                'date_now' => new \DateTime("now")
+            ));
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

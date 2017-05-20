@@ -2,6 +2,7 @@
 
 namespace ELearning\CompanyPortalBundle\Controller;
 
+use ELearning\CompanyPortalBundle\Entity\Course;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,41 +17,36 @@ use ELearning\CompanyPortalBundle\Form\FlowType;
  */
 class FlowController extends Controller
 {
-    /**
-     * Lists all Flow entities.
-     *
-     * @Route("/", name="flow_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $flows = $em->getRepository('PortalBundle:Flow')->findAll();
-
-        return $this->render('flow/index.html.twig', array(
-            'flows' => $flows,
-        ));
-    }
 
     /**
      * Creates a new Flow entity.
      *
-     * @Route("/new", name="flow_new")
+     * @Route("/new/{id}", name="flow_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Course $course)
     {
+        if ($this->getCompany() != $course->getCompany()) {
+            throw $this->createAccessDeniedException();
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $openFlow = $em->getRepository('PortalBundle:Flow')->getOpenFlow($course);
+
+        if ($openFlow) {
+            return $this->render('flow/alreadyExist.html.twig');
+        }
+
         $flow = new Flow();
         $form = $this->createForm(new FlowType(), $flow);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $flow->setCourse($course);
             $em->persist($flow);
             $em->flush();
 
-            return $this->redirectToRoute('flow_show', array('id' => $flow->getId()));
+            return $this->redirectToRoute('course_edit', array('id' => $course->getId()));
         }
 
         return $this->render('flow/new.html.twig', array(
@@ -60,30 +56,16 @@ class FlowController extends Controller
     }
 
     /**
-     * Finds and displays a Flow entity.
-     *
-     * @Route("/{id}", name="flow_show")
-     * @Method("GET")
-     */
-    public function showAction(Flow $flow)
-    {
-        $deleteForm = $this->createDeleteForm($flow);
-
-        return $this->render('flow/show.html.twig', array(
-            'flow' => $flow,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
      * Displays a form to edit an existing Flow entity.
      *
-     * @Route("/{id}/edit", name="flow_edit")
+     * @Route("/{id}/edit/", name="flow_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Flow $flow)
     {
-        $deleteForm = $this->createDeleteForm($flow);
+        if ($this->getCompany() != $flow->getCourse()->getCompany()) {
+            throw $this->createAccessDeniedException();
+        }
         $editForm = $this->createForm(new FlowType(), $flow);
         $editForm->handleRequest($request);
 
@@ -92,49 +74,26 @@ class FlowController extends Controller
             $em->persist($flow);
             $em->flush();
 
-            return $this->redirectToRoute('flow_edit', array('id' => $flow->getId()));
+            return $this->redirectToRoute('course_edit', array('id' => $flow->getCourse()->getId()));
         }
 
         return $this->render('flow/edit.html.twig', array(
             'flow' => $flow,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'course' => $flow->getCourse(),
+
         ));
     }
 
-    /**
-     * Deletes a Flow entity.
-     *
-     * @Route("/{id}", name="flow_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, Flow $flow)
+    private function getCompany()
     {
-        $form = $this->createDeleteForm($flow);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($flow);
-            $em->flush();
+        $user= $this->get('security.context')->getToken()->getUser();
+        if (! $this->get('security.context')->isGranted('ROLE_COMPANY')) {
+            throw $this->createAccessDeniedException();
         }
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('PortalBundle:Company')->findOneByOwner($user);
 
-        return $this->redirectToRoute('flow_index');
-    }
-
-    /**
-     * Creates a form to delete a Flow entity.
-     *
-     * @param Flow $flow The Flow entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Flow $flow)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('flow_delete', array('id' => $flow->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+        return $company;
     }
 }

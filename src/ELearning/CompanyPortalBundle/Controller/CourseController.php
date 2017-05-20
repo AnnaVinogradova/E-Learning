@@ -152,7 +152,7 @@ class CourseController extends Controller
         if ($this->getCompany() != $course->getCompany()) {
             throw $this->createAccessDeniedException();
         }
-        
+
         $form = $this->createDeleteForm($course);
         $form->handleRequest($request);
 

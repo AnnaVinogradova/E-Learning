@@ -213,5 +213,21 @@ class Course
     {
         $this->company = $company;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFlows()
+    {
+        return $this->flows;
+    }
+
+    /**
+     * @param mixed $flows
+     */
+    public function setFlows($flows)
+    {
+        $this->flows = $flows;
+    }
 }
 

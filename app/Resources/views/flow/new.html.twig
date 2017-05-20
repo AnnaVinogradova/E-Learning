@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="row crud-section">
     <h1>Flow creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('flow_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="col-md-offset-5 col-md-3 flow-creation">
+        {{ form_start(form) }}
+        <div class="form-group">
+            <label>Select date when next flow must start</label>
+            {{ form_widget(form.date) }}
+        </div>
+        <input class="btn btn-info col-md-5" type="submit" value="Create">
+        {{ form_end(form) }}
+    </div>
+</div>
 {% endblock %}

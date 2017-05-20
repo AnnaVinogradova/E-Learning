@@ -592,3 +592,9 @@ input[type=checkbox] {
     font-size: 1em;
     padding: 5px 15px;
 }
+
+.flow-creation {
+    background-color: #fff;
+    padding: 50px;
+    margin-bottom: 100px;
+}
