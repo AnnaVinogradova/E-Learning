@@ -2,6 +2,7 @@
 
 namespace ELearning\CompanyPortalBundle\Controller;
 
+use ELearning\CompanyPortalBundle\Entity\Material;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -134,6 +135,11 @@ class CourseController extends Controller
             return $this->redirectToRoute('course_index');
         }
 
+        foreach ($course->getMaterials() as $material) {
+            $material->ext = pathinfo($material->getPath(), PATHINFO_EXTENSION);
+            $material->form = $this->createDeleteMaterialForm($material)->createView();
+        }
+
         return $this->render('course/edit.html.twig', array(
             'course' => $course,
             'edit_form' => $editForm->createView(),
@@ -179,6 +185,22 @@ class CourseController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * Creates a form to delete a Material entity.
+     *
+     * @param Material $material The Material entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteMaterialForm(Material $material)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('material_delete', array('id' => $material->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
     }
 
     /**

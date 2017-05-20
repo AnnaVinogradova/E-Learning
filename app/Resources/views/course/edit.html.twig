@@ -56,6 +56,36 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="">
+            <a class="btn btn-primary" href="{{ path('material_new', {id: course.id}) }}">Add new material</a>
+            <table class="table table-bordered col-md-3">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Link</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for material in course.materials %}
+                    <tr>
+                        <td>{{ material.id }}</td>
+                        <td>{{ material.name }}.{{ material.ext }}</td>
+                        <td><span class="glyphicon glyphicon-save"></span>
+                            <a href="{{ path('material_show', { 'id': material.id }) }}">Download</a>
+                        </td>
+                        <td>
+                            {{ form_start(material.form) }}
+                            <input class="btn btn-danger" type="submit" value="Delete">
+                            {{ form_end(material.form) }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
 

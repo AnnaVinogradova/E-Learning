@@ -9,6 +9,7 @@ parameters:
     locale: en
     company_logo_directory: '%kernel.root_dir%/../web/images/company_logo'
     company_course_directory: '%kernel.root_dir%/../web/images/course_logo'
+    course_file_directory: '%kernel.root_dir%/../web/files/materials'
 
 framework:
     #esi:             ~

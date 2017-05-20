@@ -67,6 +67,11 @@ class Course
      */
     private $flows;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\Material", mappedBy="course")
+     */
+    private $materials;
+
 
     /**
      * Get id
@@ -228,6 +233,22 @@ class Course
     public function setFlows($flows)
     {
         $this->flows = $flows;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMaterials()
+    {
+        return $this->materials;
+    }
+
+    /**
+     * @param mixed $materials
+     */
+    public function setMaterials($materials)
+    {
+        $this->materials = $materials;
     }
 }
 

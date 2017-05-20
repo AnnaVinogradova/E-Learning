@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+        <h1>Add material</h1>
+        <div class="col-md-offset-5 col-md-3 flow-creation">
+            {{ form_start(form) }}
+            <div class="form-group">
+                <label>Title for file</label>
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div class="form-group">
+                <label>Choose file:</label>
+                {{ form_widget(form.path) }}
+            </div>
+            <input class="btn btn-info col-md-5" type="submit" value="Upload">
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
