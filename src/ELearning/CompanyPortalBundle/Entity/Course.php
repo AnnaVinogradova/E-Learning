@@ -77,6 +77,11 @@ class Course
      */
     private $homeworks;
 
+    /**
+     * @ORM\OneToOne(targetEntity="ELearning\CompanyPortalBundle\Entity\Exam", mappedBy="course")
+     */
+    private $exam;
+
 
     /**
      * Get id
@@ -238,6 +243,22 @@ class Course
     public function setFlows($flows)
     {
         $this->flows = $flows;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExam()
+    {
+        return $this->exam;
+    }
+
+    /**
+     * @param mixed $exam
+     */
+    public function setExam($exam)
+    {
+        $this->exam = $exam;
     }
 
     /**

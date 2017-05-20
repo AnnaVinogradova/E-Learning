@@ -115,6 +115,13 @@
                 </tbody>
             </table>
         </div>
+        <div>
+            {% if course.exam %}
+                <a class="btn btn-warning" href="{{ path('exam_edit', { 'id': course.exam.id }) }}">Edit exam</a>
+            {% else %}
+                <a class="btn btn-primary" href="{{ path('exam_new', { 'id': course.id }) }}">Create exam</a>
+            {% endif %}
+        </div>
     </div>
 
 

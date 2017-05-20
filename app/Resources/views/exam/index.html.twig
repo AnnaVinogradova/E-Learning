@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Exam list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for exam in exams %}
+            <tr>
+                <td><a href="{{ path('exam_show', { 'id': exam.id }) }}">{{ exam.id }}</a></td>
+                <td>{{ exam.name }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('exam_show', { 'id': exam.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('exam_edit', { 'id': exam.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('exam_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
