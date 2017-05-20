@@ -2,6 +2,7 @@
 
 namespace ELearning\CompanyPortalBundle\Controller;
 
+use ELearning\CompanyPortalBundle\Entity\Homework;
 use ELearning\CompanyPortalBundle\Entity\Material;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -140,6 +141,10 @@ class CourseController extends Controller
             $material->form = $this->createDeleteMaterialForm($material)->createView();
         }
 
+        foreach ($course->getHomeworks() as $homework) {
+            $homework->form = $this->createDeleteHomeworkForm($homework)->createView();
+        }
+
         return $this->render('course/edit.html.twig', array(
             'course' => $course,
             'edit_form' => $editForm->createView(),
@@ -198,6 +203,22 @@ class CourseController extends Controller
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('material_delete', array('id' => $material->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+            ;
+    }
+
+    /**
+     * Creates a form to delete a Homework entity.
+     *
+     * @param Homework $homework The Homework entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteHomeworkForm(Homework $homework)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('homework_delete', array('id' => $homework->getId())))
             ->setMethod('DELETE')
             ->getForm()
             ;

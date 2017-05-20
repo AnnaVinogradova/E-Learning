@@ -86,6 +86,35 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="">
+            <a class="btn btn-primary" href="{{ path('homework_new', {id: course.id}) }}">Add new homework</a>
+            <table class="table table-bordered col-md-3">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Content</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for homework in course.homeworks %}
+                        <tr>
+                            <td>{{ homework.id }}</td>
+                            <td>{{ homework.name }}</td>
+                            <td>{{ homework.content }}</td>
+                            <td>
+                                <a class="btn btn-warning" href="{{ path('homework_edit', { 'id': homework.id }) }}">edit</a>
+                                {{ form_start(homework.form, { 'attr': {'class': 'delete-action'} }) }}
+                                <input class="btn btn-danger" type="submit" value="Delete">
+                                {{ form_end(homework.form) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
 
