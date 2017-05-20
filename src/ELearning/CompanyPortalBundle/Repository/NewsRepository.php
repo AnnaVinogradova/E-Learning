@@ -10,4 +10,14 @@ namespace ELearning\CompanyPortalBundle\Repository;
  */
 class NewsRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getNewsRecommendation($company)
+    {
+        $qb = $this->createQueryBuilder('n');
+        $qb->where('n.company = '. $company->getId())
+            ->setMaxResults(3)
+            ->add('orderBy','n.id DESC');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

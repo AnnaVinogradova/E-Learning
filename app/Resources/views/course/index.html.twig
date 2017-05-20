@@ -1,47 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Course list</h1>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Img</th>
-                <th>Price</th>
-                <th>Description</th>
-                <th>Duration</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for course in courses %}
-            <tr>
-                <td><a href="{{ path('course_show', { 'id': course.id }) }}">{{ course.id }}</a></td>
-                <td>{{ course.title }}</td>
-                <td>{{ course.img }}</td>
-                <td>{{ course.price }}</td>
-                <td>{{ course.description }}</td>
-                <td>{{ course.duration }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('course_show', { 'id': course.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('course_edit', { 'id': course.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('course_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+    <div class="col-md-offset-1 col-md-10">
+        <h1>Courses created by {{ company.name }}</h1>
+        <a class="btn btn-primary" href="{{ path('course_new') }}">Create course</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Img</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Duration</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for course in company.courses %}
+                <tr>
+                    <td><a href="{{ path('course_show', { 'id': course.id }) }}">{{ course.id }}</a></td>
+                    <td>{{ course.title }}</td>
+                    <td class="img-in-table"><img src="/images/course_logo/{{ course.img }}" alt=""></td>
+                    <td>{{ course.price }}</td>
+                    <td>{{ course.description }}</td>
+                    <td>{{ course.duration }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('course_show', { 'id': course.id }) }}">Show</a>
+                        <a class="btn btn-warning" href="{{ path('course_edit', { 'id': course.id }) }}">Edit</a>
+                        {{ form_start(course.form, { 'attr': {'class': 'delete-action'} }) }}
+                        <input class="btn btn-danger" type="submit" value="Delete">
+                        {{ form_end(course.form) }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="row"></div>
 {% endblock %}

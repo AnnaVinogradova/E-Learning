@@ -556,3 +556,39 @@ input[type=checkbox] {
     .vacancy-item a {
         color: #000;
     }
+
+.mini-img {
+    width: 300px;
+    margin-top: -30px;
+    float: right;
+}
+
+.mini-img img {
+    width: 70px;
+    border: 1px solid #000;
+}
+
+.img-in-table img {
+    width: 100px;
+    border: 1px solid #000;
+}
+
+.vacancy-item-course .thumbnail img {
+    box-shadow: none;
+}
+
+.course-desc {
+    font-size: 1.5em;
+    font-style: italic;
+    text-shadow: 1px 1px 1px #000;
+    font-weight: bold;
+}
+
+.course-menu {
+    font-size: 1.5em;
+}
+
+.course-menu .badge {
+    font-size: 1em;
+    padding: 5px 15px;
+}

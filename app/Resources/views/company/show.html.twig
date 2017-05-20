@@ -35,14 +35,32 @@
          <h1>
              <a href="">Recent Courses</a>
          </h1>
-
+         <div class="vacancy-item-course">
+         {% for course in courseRecommend %}
+                 <div class="col-md-offset-1 col-xs-6 col-sm-4 col-md-3 col-lg3">
+                     <div class="thumbnail">
+                         <img src="/images/course_logo/{{ course.img }}">
+                         <div class="caption">
+                             <h2>{{ course.title }}</h2>
+                             <p>{{ course.description }}</p>
+                             <a href="{{ path('course_show', {id:course.id}) }}" class="btn btn-success">Learn more</a>
+                         </div>
+                     </div>
+                 </div>
+         {% endfor %}
+         </div>
      </div>
 
      <div class="row company-list">
          <h1>
              <a href="">Recent News</a>
          </h1>
-
+         {% for news in newsRecommend %}
+             <div class="vacancy-item">
+                 <a href="{{ path("news_show", {id:news.id}) }}">{{ news.title }}</a>
+                 <div class="date">{{ news.date|date('Y-m-d H:i:s') }}</div>
+             </div>
+         {% endfor %}
      </div>
  </div>
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+        <div class="col-md-offset-1 col-md-10">
+            {% for course in courses %}
+                <div class="col-md-offset-1 col-xs-6 col-sm-4 col-md-3 col-lg3">
+                    <div class="thumbnail">
+                        <img src="/images/course_logo/{{ course.img }}">
+                        <div class="caption">
+                            <h2>{{ course.title }}</h2>
+                            <p class="course-desc">{{ course.description }}</p>
+                            <p class="course-desc">Price: {{ course.price }}$</p>
+                            <a href="{{ path('course_show', {id:course.id}) }}" class="btn btn-success">Learn more</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock body %}

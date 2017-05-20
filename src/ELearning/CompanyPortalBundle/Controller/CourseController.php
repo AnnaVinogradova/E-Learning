@@ -17,18 +17,36 @@ use ELearning\CompanyPortalBundle\Form\CourseType;
 class CourseController extends Controller
 {
     /**
-     * Lists all Course entities.
+     * Lists all Course entities by company.
      *
      * @Route("/", name="course_index")
      * @Method("GET")
      */
     public function indexAction()
     {
+        $company = $this->getCompany();
+        foreach ($company->getCourses() as $course) {
+            $course->form = $this->createDeleteForm($course)->createView();
+        }
+
+        return $this->render('course/index.html.twig', array(
+            'company' => $company,
+        ));
+    }
+
+    /**
+     * Lists all Courses entities.
+     *
+     * @Route("/list", name="courses_public")
+     * @Method("GET")
+     */
+    public function publicListAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $courses = $em->getRepository('PortalBundle:Course')->findAll();
 
-        return $this->render('course/index.html.twig', array(
+        return $this->render('course/publicList.html.twig', array(
             'courses' => $courses,
         ));
     }
@@ -41,12 +59,24 @@ class CourseController extends Controller
      */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $company = $this->getCompany();
+
         $course = new Course();
         $form = $this->createForm(new CourseType(), $course);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $file = $course->getImg();
+
+            if ($file == null) {
+                $fileName = 'default.jpg';
+            } else {
+                $fileName = $this->saveLogo($file);
+            }
+            $course->setImg($fileName);
+            $course->setCompany($company);
+
             $em->persist($course);
             $em->flush();
 
@@ -67,11 +97,8 @@ class CourseController extends Controller
      */
     public function showAction(Course $course)
     {
-        $deleteForm = $this->createDeleteForm($course);
-
         return $this->render('course/show.html.twig', array(
             'course' => $course,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -83,16 +110,28 @@ class CourseController extends Controller
      */
     public function editAction(Request $request, Course $course)
     {
+        if ($this->getCompany() != $course->getCompany()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $fileName = $course->getImg();
         $deleteForm = $this->createDeleteForm($course);
         $editForm = $this->createForm(new CourseType(), $course);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $file = $course->getImg();
+            if($file != null){
+                $fileName = $this->saveLogo($file);
+            }
+
+            $course->setImg($fileName);
             $em->persist($course);
             $em->flush();
 
-            return $this->redirectToRoute('course_edit', array('id' => $course->getId()));
+            return $this->redirectToRoute('course_index');
         }
 
         return $this->render('course/edit.html.twig', array(
@@ -110,6 +149,10 @@ class CourseController extends Controller
      */
     public function deleteAction(Request $request, Course $course)
     {
+        if ($this->getCompany() != $course->getCompany()) {
+            throw $this->createAccessDeniedException();
+        }
+        
         $form = $this->createDeleteForm($course);
         $form->handleRequest($request);
 
@@ -136,5 +179,33 @@ class CourseController extends Controller
             ->setMethod('DELETE')
             ->getForm()
         ;
+    }
+
+    /**
+     * Save logo jpeg file
+     *
+     * @param \Symfony\Component\HttpFoundation\File\File $file
+     * @return string
+     */
+    private function saveLogo($file)
+    {
+        $fileName = md5(uniqid()).'.'.$file->guessExtension();
+        $file->move(
+            $this->getParameter('company_course_directory'),
+            $fileName
+        );
+        return $fileName;
+    }
+
+    private function getCompany()
+    {
+        $user= $this->get('security.context')->getToken()->getUser();
+        if (! $this->get('security.context')->isGranted('ROLE_COMPANY')) {
+            throw $this->createAccessDeniedException();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $company = $em->getRepository('PortalBundle:Company')->findOneByOwner($user);
+
+        return $company;
     }
 }

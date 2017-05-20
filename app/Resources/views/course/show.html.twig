@@ -1,48 +1,30 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Course</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ course.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ course.title }}</td>
-            </tr>
-            <tr>
-                <th>Img</th>
-                <td>{{ course.img }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ course.price }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ course.description }}</td>
-            </tr>
-            <tr>
-                <th>Duration</th>
-                <td>{{ course.duration }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('course_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('course_edit', { 'id': course.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row company-list">
+        <h1>
+            <a href="">{{ course.title }}</a>
+        </h1>
+        <div class="col-md-4">
+            <img src="/images/course_logo/{{ course.img }}" alt="">
+        </div>
+        <div class="col-md-8">
+            <p>{{ course.description }}</p>
+            <p>Price: {{ course.price }}$</p>
+            <p>Duration: {{ course.duration }}</p>
+            <div class="course-menu">
+                <p class=""><span class="glyphicon glyphicon-file"></span> Materials <span class="badge">5</span></p>
+                <p class=""><span class="glyphicon glyphicon-list-alt"></span> Tests <span class="badge">10</span><br></p>
+                <p class=""><span class="glyphicon glyphicon-book"></span> Homework <span class="badge">8</span></p>
+                <p><span class="glyphicon glyphicon-comment"></span> Consultations: {% if course.price == 0 %}No{% else %}Yes{% endif %}</p>
+                <p><span class="glyphicon glyphicon-flag"></span> Certificate: {% if course.price == 0 %}No{% else %}Yes{% endif %}</p>
+            </div>
+        </div>
+        <div class="links">
+            <a href="{{ path("courses_public") }}" class="col-md-offset-1 btn btn-primary">Back to list</a>
+            {% if is_granted("ROLE_COMPANY") %}
+                <a href="{{ path("course_index") }}" class="col-md-offset-1 btn btn-primary">Back to my courses list</a>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

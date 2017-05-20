@@ -69,10 +69,14 @@ class CompanyController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $vacancies = $em->getRepository('PortalBundle:Vacancy')->getVacancyRecommendation($company);
+        $courses = $em->getRepository('PortalBundle:Course')->getCoursesRecommendation($company);
+        $news = $em->getRepository('PortalBundle:News')->getNewsRecommendation($company);
 
         return $this->render('company/show.html.twig', array(
             'company' => $company,
-            'vacancyRecommend' => $vacancies
+            'vacancyRecommend' => $vacancies,
+            'courseRecommend' => $courses,
+            'newsRecommend' => $news
         ));
     }
 

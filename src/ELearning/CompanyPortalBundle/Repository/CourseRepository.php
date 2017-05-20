@@ -10,4 +10,14 @@ namespace ELearning\CompanyPortalBundle\Repository;
  */
 class CourseRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getCoursesRecommendation($company)
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.company = '. $company->getId())
+            ->setMaxResults(3)
+            ->add('orderBy','c.id DESC');
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

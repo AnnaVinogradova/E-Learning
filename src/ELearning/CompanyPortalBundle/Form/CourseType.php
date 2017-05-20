@@ -3,6 +3,7 @@
 namespace ELearning\CompanyPortalBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,11 @@ class CourseType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('img')
+            ->add('img', FileType::class, array(
+                'data_class' => null,
+                'label' => 'Post (JPG file)',
+                'required' => false,
+                'empty_data'  => null))
             ->add('price')
             ->add('description')
             ->add('duration')
