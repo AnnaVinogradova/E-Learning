@@ -129,7 +129,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Count of questions</th>
+                    <th>Questions</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -139,8 +139,14 @@
                         <td>{{ test.id }}</td>
                         <td>{{ test.name }}</td>
                         <td>
-                            <a class="btn btn-warning" href="{{ path('test_edit', { 'id': test.id }) }}">edit</a>
-                            <a class="btn btn-warning" href="{{ path('testquestion_new', { 'id': test.id }) }}">Add question</a>
+                            {% for question in test.questions %}
+                                {{ loop.index }}) {{ question.text }}
+                                <a href="{{ path("testquestion_edit", {id:question.id}) }}">Edit</a><br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a class="btn btn-warning" href="{{ path('test_edit', { 'id': test.id }) }}">Edit</a>
+                            <a class="btn btn-success" href="{{ path('testquestion_new', { 'id': test.id }) }}">Add question</a>
                         </td>
                     </tr>
                 {% endfor %}

@@ -1,21 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Test edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('test_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div class="row crud-section">
+        <h1>Test edit</h1>
+        <a href="{{ path("course_edit", {id: test.course.id}) }}" class="btn">Back to list</a>
+        <div class="col-md-offset-5 col-md-3 flow-creation">
+            {{ form_start(edit_form) }}
+            <div class="form-group">
+                <label>Name</label>
+                {{ form_widget(edit_form.name, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <input class="btn btn-info col-md-5" type="submit" value="Edit">
+            {{ form_end(edit_form) }}
+        </div>
+    </div>
 {% endblock %}

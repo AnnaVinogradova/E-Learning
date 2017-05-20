@@ -2,6 +2,7 @@
 
 namespace ELearning\CompanyPortalBundle\Controller;
 
+use ELearning\CompanyPortalBundle\Entity\Test;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -36,10 +37,10 @@ class TestQuestionController extends Controller
     /**
      * Creates a new TestQuestion entity.
      *
-     * @Route("/new", name="testquestion_new")
+     * @Route("/new/{id}", name="testquestion_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, Test $test)
     {
         $testQuestion = new TestQuestion();
         $form = $this->createForm(new TestQuestionType(), $testQuestion);
@@ -47,6 +48,7 @@ class TestQuestionController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $testQuestion->setTest($test);
             foreach ($testQuestion->getAnswers() as $answer) {
                 $answer->setQuestion($testQuestion);
                 $em->persist($answer);
@@ -54,7 +56,7 @@ class TestQuestionController extends Controller
             $em->persist($testQuestion);
             $em->flush();
 
-            return $this->redirectToRoute('testquestion_show', array('id' => $testQuestion->getId()));
+            return $this->redirectToRoute('course_edit', array('id' => $test->getCourse()->getId()));
         }
 
         return $this->render('testquestion/new.html.twig', array(
@@ -93,10 +95,14 @@ class TestQuestionController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            foreach ($testQuestion->getAnswers() as $answer) {
+                $answer->setQuestion($testQuestion);
+                $em->persist($answer);
+            }
             $em->persist($testQuestion);
             $em->flush();
 
-            return $this->redirectToRoute('testquestion_edit', array('id' => $testQuestion->getId()));
+            return $this->redirectToRoute('course_edit', array('id' => $testQuestion->getTest()->getCourse()->getId()));
         }
 
         return $this->render('testquestion/edit.html.twig', array(

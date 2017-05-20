@@ -599,7 +599,7 @@ input[type=checkbox] {
     margin-bottom: 100px;
 }
 
-.questions textarea {
+.questions textarea, .answers textarea {
     background-color: #fff;
     border: 1px solid #7c8ea3;
     border-radius: 5px;
