@@ -190,6 +190,24 @@ class CourseController extends Controller
     }
 
     /**
+     * Course entity for student.
+     *
+     * @Route("/learn/list/courses", name="user_courses")
+     * @Method("GET")
+     */
+    public function userCoursesAction()
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $courses = $em->getRepository('PortalBundle:Course')->findAll();
+        return $this->render('course/userCourses.html.twig', array(
+            'courses' => $courses
+        ));
+    }
+
+    /**
      * Creates a form to delete a Course entity.
      *
      * @param Course $course The Course entity

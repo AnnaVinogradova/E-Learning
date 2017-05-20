@@ -25,7 +25,8 @@
                     <h3><span class="glyphicon glyphicon-list-alt"></span> Tests</h3>
                     <ul>
                         {% for test in course.tests %}
-                            <li><a href="{{ path("usertest_new", {id:test.id}) }}">{{ test.name }}</a></li>
+                            <li><a href="{{ path("usertest_new", {id:test.id}) }}">{{ test.name }}</a>
+                            </li>
                         {% endfor %}
                     </ul>
                 </div>

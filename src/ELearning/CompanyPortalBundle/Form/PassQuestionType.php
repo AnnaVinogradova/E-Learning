@@ -24,7 +24,8 @@ class PassQuestionType extends AbstractType
         $builder->add('answers', ChoiceType::class, array(
             'choices'  => $choices,
             'multiple' => true,
-            'expanded' => "true"));
+            'expanded' => "true",
+        ))        ;
     }
 
     /**

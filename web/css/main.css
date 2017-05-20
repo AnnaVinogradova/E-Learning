@@ -609,3 +609,7 @@ input[type=checkbox] {
     padding: 5px;
     width: 80%;
 }
+
+.progress-header {
+    padding-top: 6%;
+}

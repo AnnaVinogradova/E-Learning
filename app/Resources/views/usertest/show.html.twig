@@ -1,9 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ current.text }}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Create" />
-    {{ form_end(form) }}
+<div class="row crud-section">
+
+    <div class="col-md-offset-2 col-md-8 flow-creation">
+        <h1>{{ current.text }}</h1>
+        {{ form_start(form) }}
+        {% for i in 0..form.answers|length-1 %}
+            <div>
+                {{ form_widget(form.answers[i]) }}
+                {{ form_label(form.answers[i]) }}
+            </div>
+        {% endfor %}
+        {{ form_widget(form) }}
+        <input class="btn btn-success col-md-2" type="submit" value="Answer" />
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
