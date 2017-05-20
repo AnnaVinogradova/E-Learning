@@ -1,3 +1,11 @@
+portal_test_question:
+    resource: "@PortalBundle/Controller/TestQuestionController.php"
+    type:     annotation
+
+portal_test:
+    resource: "@PortalBundle/Controller/TestController.php"
+    type:     annotation
+
 portal_exam:
     resource: "@PortalBundle/Controller/ExamController.php"
     type:     annotation

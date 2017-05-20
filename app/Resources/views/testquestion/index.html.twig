@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>TestQuestion list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Text</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for testQuestion in testQuestions %}
+            <tr>
+                <td><a href="{{ path('testquestion_show', { 'id': testQuestion.id }) }}">{{ testQuestion.id }}</a></td>
+                <td>{{ testQuestion.text }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('testquestion_show', { 'id': testQuestion.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('testquestion_edit', { 'id': testQuestion.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('testquestion_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

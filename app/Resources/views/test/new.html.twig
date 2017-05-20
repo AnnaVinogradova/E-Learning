@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+        <h1>Test creation</h1>
+        <div class="col-md-offset-5 col-md-3 flow-creation">
+            {{ form_start(form) }}
+            <div class="form-group">
+                <label>Name</label>
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <input class="btn btn-info col-md-5" type="submit" value="Create">
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

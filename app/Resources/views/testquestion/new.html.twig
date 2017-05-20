@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+        <h1>Question creation</h1>
+
+        <div class="col-md-offset-1 col-md-8 flow-creation">
+            {{ form_start(form) }}
+            <div class="form-group">
+                <label>Name</label>
+                {{ form_widget(form.text, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <ul class="answers" data-prototype="{{ form_widget(form.answers.vars.prototype)|e('html_attr') }}">
+                <a class="btn btn-default add_answer_link" href="#">Add an answer</a>
+                <label for="">Answers:</label>
+                {{ form_widget(form.answers) }}
+            </ul>
+            <input class="btn btn-info col-md-5" type="submit" value="Create">
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+       {{ parent() }}
+
+       <script>
+           var $collectionHolder;
+
+            var $addQuestionLink = $('.add_answer_link');
+            var $newLinkLi = $('<li></li>').append($addQuestionLink);
+
+            jQuery(document).ready(function() {
+            $collectionHolder = $('ul.answers');
+            $collectionHolder.append($newLinkLi);
+
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addQuestionLink.on('click', function(e) {
+            e.preventDefault();
+
+            $addQuestionForm($collectionHolder, $newLinkLi);
+
+            });
+
+            function $addQuestionForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            var index = $collectionHolder.data('index');
+
+            var newForm = prototype.replace(/__name__/g, index);
+
+            $collectionHolder.data('index', index + 1);
+
+            var $newFormLi = $('<li></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+            }
+
+            });
+        </script>
+{% endblock javascripts %}

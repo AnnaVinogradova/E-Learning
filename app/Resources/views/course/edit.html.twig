@@ -117,10 +117,35 @@
         </div>
         <div>
             {% if course.exam %}
-                <a class="btn btn-warning" href="{{ path('exam_edit', { 'id': course.exam.id }) }}">Edit exam</a>
+                <a class="btn btn-warning pull-right" href="{{ path('exam_edit', { 'id': course.exam.id }) }}">Edit exam</a>
             {% else %}
-                <a class="btn btn-primary" href="{{ path('exam_new', { 'id': course.id }) }}">Create exam</a>
+                <a class="btn btn-primary pull-right" href="{{ path('exam_new', { 'id': course.id }) }}">Create exam</a>
             {% endif %}
+        </div>
+        <div class="">
+            <a class="btn btn-primary" href="{{ path('test_new', {id: course.id}) }}">Add new test</a>
+            <table class="table table-bordered col-md-3">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Count of questions</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for test in course.tests %}
+                    <tr>
+                        <td>{{ test.id }}</td>
+                        <td>{{ test.name }}</td>
+                        <td>
+                            <a class="btn btn-warning" href="{{ path('test_edit', { 'id': test.id }) }}">edit</a>
+                            <a class="btn btn-warning" href="{{ path('testquestion_new', { 'id': test.id }) }}">Add question</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
