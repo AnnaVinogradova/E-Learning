@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row company-list">
+        <h1>
+            <a href="{{ path("course_show", {id: course.id}) }}">{{ course.title }}</a>
+        </h1>
+        <div class="col-md-4">
+            <img src="/images/course_logo/{{ course.img }}" alt="">
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3><span class="glyphicon glyphicon-file"></span> Materials</h3>
+                    <ul>
+                        {% for material in course.materials %}
+                            <li>{{ material.name }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h3><span class="glyphicon glyphicon-list-alt"></span> Tests</h3>
+                    <ul>
+                        {% for test in course.tests %}
+                            <li><a href="{{ path("usertest_new", {id:test.id}) }}">{{ test.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h3><span class="glyphicon glyphicon-book"></span> Homework</h3>
+                    <ul>
+                    {% for homework in course.homeworks %}
+                        <li>{{ homework.name }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

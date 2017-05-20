@@ -177,6 +177,19 @@ class CourseController extends Controller
     }
 
     /**
+     * Course entity for student.
+     *
+     * @Route("/learn/{id}", name="course_for_student")
+     * @Method("GET")
+     */
+    public function courseForStudentAction(Course $course)
+    {
+        return $this->render('course/courseForStudent.html.twig', array(
+            'course' => $course
+        ));
+    }
+
+    /**
      * Creates a form to delete a Course entity.
      *
      * @param Course $course The Course entity

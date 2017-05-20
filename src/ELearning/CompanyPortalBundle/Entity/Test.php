@@ -40,6 +40,11 @@ class Test
     private $questions;
 
     /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\UserTest", mappedBy="test")
+     */
+    private $usertests;
+
+    /**
      * Get id
      *
      * @return int
@@ -103,6 +108,22 @@ class Test
     public function getQuestions()
     {
         return $this->questions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsertests()
+    {
+        return $this->usertests;
+    }
+
+    /**
+     * @param mixed $usertests
+     */
+    public function setUsertests($usertests)
+    {
+        $this->usertests = $usertests;
     }
 }
 

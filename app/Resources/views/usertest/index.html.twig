@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>UserTest list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Step</th>
+                <th>Points</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for userTest in userTests %}
+            <tr>
+                <td><a href="{{ path('usertest_show', { 'id': userTest.id }) }}">{{ userTest.id }}</a></td>
+                <td>{{ userTest.step }}</td>
+                <td>{{ userTest.points }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('usertest_show', { 'id': userTest.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('usertest_edit', { 'id': userTest.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('usertest_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -29,6 +29,11 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\UserTest", mappedBy="user")
+     */
+    private $tests;
+
 
     /**
      * Get id
@@ -38,5 +43,21 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTests()
+    {
+        return $this->tests;
+    }
+
+    /**
+     * @param mixed $tests
+     */
+    public function setTests($tests)
+    {
+        $this->tests = $tests;
     }
 }
