@@ -598,3 +598,14 @@ input[type=checkbox] {
     padding: 50px;
     margin-bottom: 100px;
 }
+
+.questions textarea {
+    background-color: #fff;
+    border: 1px solid #7c8ea3;
+    border-radius: 5px;
+    color: #000;
+    display: block;
+    margin: 10px;
+    padding: 5px;
+    width: 80%;
+}

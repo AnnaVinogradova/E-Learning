@@ -9,6 +9,10 @@
                 <label>Name</label>
                 {{ form_widget(form.name, { 'attr': {'class': 'form-control'} }) }}
             </div>
+            <div class="form-group">
+                <label>* After exam creation you can add questions to it</label>
+                {{ form_widget(form.questions) }}
+            </div>
             <input class="btn btn-info col-md-1" type="submit" value="Create">
             {{ form_end(form) }}
         </div>

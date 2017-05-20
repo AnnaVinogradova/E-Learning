@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ExamType extends AbstractType
+class ExamQuestionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,21 +17,16 @@ class ExamType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('questions', CollectionType::class, array(
-                'entry_type' => ExamQuestionType::class,
-                'allow_add'    => true,
-            ));
-        ;
+            ->add('text');
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'ELearning\CompanyPortalBundle\Entity\Exam'
+            'data_class' => 'ELearning\CompanyPortalBundle\Entity\ExamQuestion'
         ));
     }
 }

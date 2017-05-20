@@ -3,14 +3,60 @@
 {% block body %}
 <div class="row crud-section">
     <h1>Edit exam</h1>
+    <a class="btn btn-link" href="{{ path("course_edit", {id: exam.course.id}) }}">Return to list</a>
     <div class="flow-creation">
         {{ form_start(edit_form) }}
         <div class="form-group">
             <label>Name</label>
             {{ form_widget(edit_form.name, { 'attr': {'class': 'form-control'} }) }}
         </div>
+        <label for="">Questions:</label>
+        <a class="btn btn-default add_question_link" href="#">Add a question</a>
+        <ul class="questions" data-prototype="{{ form_widget(edit_form.questions.vars.prototype, { 'attr': {'class': 'multiform'} })|e('html_attr') }}">
+            {{ form_widget(edit_form.questions)}}
+        </ul>
         <input class="btn btn-info col-md-1" type="submit" value="Update">
         {{ form_end(edit_form) }}
     </div>
 </div>
 {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+
+        <script>
+            var $collectionHolder;
+
+            var $addQuestionLink = $('.add_question_link');
+            var $newLinkLi = $('<li></li>').append($addQuestionLink);
+
+            jQuery(document).ready(function() {
+                $collectionHolder = $('ul.questions');
+                $collectionHolder.append($newLinkLi);
+
+                $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+                $addQuestionLink.on('click', function(e) {
+                    e.preventDefault();
+
+                    $addQuestionForm($collectionHolder, $newLinkLi);
+
+                });
+
+                function $addQuestionForm($collectionHolder, $newLinkLi) {
+                    // Get the data-prototype explained earlier
+                    var prototype = $collectionHolder.data('prototype');
+
+                    var index = $collectionHolder.data('index');
+
+                    var newForm = prototype.replace(/__name__/g, index);
+
+                    $collectionHolder.data('index', index + 1);
+
+                    var $newFormLi = $('<li></li>').append(newForm);
+                    $newLinkLi.before($newFormLi);
+                }
+
+            });
+        </script>
+    {% endblock javascripts %}
