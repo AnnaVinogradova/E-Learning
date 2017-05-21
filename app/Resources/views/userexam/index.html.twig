@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>UserExam list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Startdate</th>
+                <th>Status</th>
+                <th>Checked</th>
+                <th>Sertificate</th>
+                <th>Finished</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for userExam in userExams %}
+            <tr>
+                <td><a href="{{ path('userexam_show', { 'id': userExam.id }) }}">{{ userExam.id }}</a></td>
+                <td>{% if userExam.startDate %}{{ userExam.startDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.status %}Yes{% else %}No{% endif %}</td>
+                <td>{% if entity.checked %}Yes{% else %}No{% endif %}</td>
+                <td>{% if entity.sertificate %}Yes{% else %}No{% endif %}</td>
+                <td>{% if entity.finished %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('userexam_show', { 'id': userExam.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('userexam_edit', { 'id': userExam.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('userexam_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

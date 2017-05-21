@@ -40,6 +40,11 @@ class Exam
     private $questions;
 
     /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\UserExam", mappedBy="exam")
+     */
+    private $userexams;
+
+    /**
      * Get id
      *
      * @return int

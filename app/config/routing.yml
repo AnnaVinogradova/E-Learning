@@ -1,3 +1,7 @@
+portal_user_exam:
+    resource: "@PortalBundle/Controller/UserExamController.php"
+    type:     annotation
+
 portal_user_test:
     resource: "@PortalBundle/Controller/UserTestController.php"
     type:     annotation

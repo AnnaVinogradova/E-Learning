@@ -613,3 +613,10 @@ input[type=checkbox] {
 .progress-header {
     padding-top: 6%;
 }
+
+.statistic {
+    background-color: #C8C9CB;
+    border-radius: 50%;
+    font-size: 1.5em;
+    padding: 10px;
+}

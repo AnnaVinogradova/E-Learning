@@ -39,6 +39,11 @@
                     </ul>
                 </div>
             </div>
+            {% if course.exam %}
+            <div class="row">
+                <a href="{{ path("userexam_new", { id: course.exam.id}) }}" class="btn btn-success">Start Exam</a>
+            </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

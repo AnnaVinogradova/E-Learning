@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="row crud-section">
+
+    <div class="col-md-offset-2 col-md-8 flow-creation">
+        {% set counter = current + 1 %}
+        <div class="pull-right statistic">{{ counter }}/{{ all_count }}</div>
+        <h1>{{ question.text }}</h1>
+        {{ form_start(form) }}
+            {{ form_widget(form.answer, { 'attr': {'class': 'form-control'} }) }}
+            <input class="btn btn-success col-md-2" type="submit" value="Answer" />
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
