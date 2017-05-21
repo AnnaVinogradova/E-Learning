@@ -3,6 +3,8 @@
 namespace ELearning\CompanyPortalBundle\Controller;
 
 use ELearning\CompanyPortalBundle\Entity\Course;
+use ELearning\CompanyPortalBundle\Entity\Flow;
+use ELearning\CompanyPortalBundle\Entity\UserRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -20,17 +22,24 @@ class UserCourseController extends Controller
     /**
      * Lists all UserCourse entities.
      *
-     * @Route("/", name="usercourse_index")
+     * @Route("/{id}", name="manage-requests")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Course $course)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $userCourses = $em->getRepository('PortalBundle:UserCourse')->findAll();
+        $openFlow = $em->getRepository('PortalBundle:Flow')->getOpenFlow($course);
+        if ($openFlow) {
+            $openFlow = $openFlow[0];
+        }
+
+        foreach ($openFlow->getRequests() as $request) {
+            $request->form = $this->createDeleteForm($request)->createView();
+        }
 
         return $this->render('usercourse/index.html.twig', array(
-            'userCourses' => $userCourses,
+            'userRequests' => $openFlow->getRequests(),
         ));
     }
 
@@ -59,18 +68,54 @@ class UserCourseController extends Controller
     }
 
     /**
+     * Creates a new UserCourse for free course.
+     *
+     * @Route("/new/{id}/request", name="user_request_new")
+     * @Method({"GET"})
+     */
+    public function newRequestAction(Request $request, Flow $flow)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userCourse = $em->getRepository('PortalBundle:UserCourse')->findOneBy(array(
+            'user' => $this->get('security.context')->getToken()->getUser(),
+            'course' => $flow->getCourse()
+        ));
+
+        $userRequest = $em->getRepository('PortalBundle:UserRequest')->findOneBy(array(
+            'user' => $this->get('security.context')->getToken()->getUser(),
+            'flow' => $flow
+        ));
+
+        if (! $userCourse && ! $userRequest) {
+            $userRequest = new UserRequest();
+            $userRequest->setUser($this->get('security.context')->getToken()->getUser());
+            $userRequest->setFlow($flow);
+            $em->persist($userRequest);
+            $em->flush();
+        }
+        return $this->redirectToRoute('courses_public');
+    }
+
+    /**
      * Finds and displays a UserCourse entity.
      *
-     * @Route("/{id}", name="usercourse_show")
+     * @Route("/{id}/accept", name="request_accept")
      * @Method("GET")
      */
-    public function showAction(UserCourse $userCourse)
+    public function acceptAction(UserRequest $userRequest)
     {
-        $deleteForm = $this->createDeleteForm($userCourse);
+        $userCourse = new UserCourse();
+        $userCourse->setUser($userRequest->getUser());
+        $userCourse->setCourse($userRequest->getFlow()->getCourse());
+        $userCourse->setFlow($userRequest->getFlow());
 
-        return $this->render('usercourse/show.html.twig', array(
-            'userCourse' => $userCourse,
-            'delete_form' => $deleteForm->createView(),
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($userCourse);
+        $em->remove($userRequest);
+        $em->flush();
+
+        return $this->redirectToRoute('manage-requests', array(
+            'id' => $userCourse->getCourse()->getId()
         ));
     }
 
@@ -102,36 +147,40 @@ class UserCourseController extends Controller
     }
 
     /**
-     * Deletes a UserCourse entity.
+     * Deletes a UserRequest entity.
      *
-     * @Route("/{id}", name="usercourse_delete")
+     * @Route("/{id}", name="userrequest_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, UserCourse $userCourse)
+    public function deleteAction(Request $request, UserRequest $userRequest)
     {
-        $form = $this->createDeleteForm($userCourse);
+        $course = $userRequest->getFlow()->getCourse();
+        $form = $this->createDeleteForm($userRequest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($userCourse);
+            $em->remove($userRequest);
             $em->flush();
         }
 
-        return $this->redirectToRoute('usercourse_index');
+        return $this->redirectToRoute('manage-requests',
+            array(
+                'id' => $course->getId()
+            ));
     }
 
     /**
-     * Creates a form to delete a UserCourse entity.
+     * Creates a form to delete a UserRequest entity.
      *
-     * @param UserCourse $userCourse The UserCourse entity
+     * @param UserRequest $userRequest The UserRequest entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(UserCourse $userCourse)
+    private function createDeleteForm(UserRequest $userRequest)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('usercourse_delete', array('id' => $userCourse->getId())))
+            ->setAction($this->generateUrl('userrequest_delete', array('id' => $userRequest->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

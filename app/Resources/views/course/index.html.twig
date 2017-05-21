@@ -31,6 +31,7 @@
                         {{ form_start(course.form, { 'attr': {'class': 'delete-action'} }) }}
                         <input class="btn btn-danger" type="submit" value="Delete">
                         {{ form_end(course.form) }}
+                        <a href="{{ path("manage-requests", {id: course.id}) }}" class="btn btn-success">Manage requests</a>
                     </td>
                 </tr>
             {% endfor %}

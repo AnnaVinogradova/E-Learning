@@ -13,7 +13,7 @@
             <a href="{{ path('usercourse_index') }}">Back to the list</a>
         </li>
         <li>
-            {{ form_start(delete_form) }}
+            {{ form_start(delete_form, { 'attr': {'class': 'delete-action'} }) }}
                 <input type="submit" value="Delete">
             {{ form_end(delete_form) }}
         </li>

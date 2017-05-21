@@ -34,6 +34,16 @@ class Flow
      */
     private $course;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\UserRequest", mappedBy="flow")
+     */
+    private $requests;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\UserCourse", mappedBy="flow")
+     */
+    private $usercourses;
+
 
     /**
      * Get id
@@ -75,6 +85,38 @@ class Flow
     public function setCourse($course)
     {
         $this->course = $course;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequests()
+    {
+        return $this->requests;
+    }
+
+    /**
+     * @param mixed $requests
+     */
+    public function setRequests($requests)
+    {
+        $this->requests = $requests;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsercourses()
+    {
+        return $this->usercourses;
+    }
+
+    /**
+     * @param mixed $usercourses
+     */
+    public function setUsercourses($usercourses)
+    {
+        $this->usercourses = $usercourses;
     }
 }
 

@@ -1,37 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>UserCourse list</h1>
-
-    <table>
-        <thead>
+    <div class="">
+        <table class="table table-bordered col-md-3">
+            <thead>
             <tr>
-                <th>Id</th>
+                <th>User</th>
+                <th>Course</th>
                 <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for userCourse in userCourses %}
-            <tr>
-                <td><a href="{{ path('usercourse_show', { 'id': userCourse.id }) }}">{{ userCourse.id }}</a></td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('usercourse_show', { 'id': userCourse.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('usercourse_edit', { 'id': userCourse.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('usercourse_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+            </thead>
+            <tbody>
+            {% for req in userRequests %}
+                <tr>
+                    <td>{{ req.user.username }}</td>
+                    <td><a href="{{ path('course_show', { 'id': req.flow.course.id }) }}">{{ req.flow.course.title }}</a></td>
+                    <td>
+                        <a class="btn btn-success" href="{{ path('request_accept', { 'id': req.id }) }}">Accept</a>
+                        {{ form_start(req.form, { 'attr': {'class': 'delete-action'} }) }}
+                        <input class="btn btn-danger" type="submit" value="Decline">
+                        {{ form_end(req.form) }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

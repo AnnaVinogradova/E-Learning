@@ -29,7 +29,7 @@
                 <a href="{{ path("usercourse_new", {id: course.id}) }}" class="btn btn-success">Start course</a>
             {% else %}
                 {% if openFlow %}
-                    <a href="" class="btn btn-primary">Send request for flow {{ openFlow.date|date('Y-m-d') }}</a>
+                    <a href="{{ path("user_request_new", {id: openFlow.id}) }}" class="btn btn-primary">Send request for flow {{ openFlow.date|date('Y-m-d') }}</a>
                 {% else %}
                     <a href="" class="btn btn-info">Subscribe to get notification when new flow will be open</a>
                 {% endif %}

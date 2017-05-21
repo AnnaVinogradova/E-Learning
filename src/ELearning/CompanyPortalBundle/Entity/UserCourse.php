@@ -34,6 +34,12 @@ class UserCourse
      */
     private $course;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="ELearning\CompanyPortalBundle\Entity\Flow", inversedBy="usercourses")
+     * @ORM\JoinColumn(name="flow_id", referencedColumnName="id")
+     */
+    private $flow;
+
 
     /**
      * Get id
@@ -75,6 +81,22 @@ class UserCourse
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @param mixed $flow
+     */
+    public function setFlow($flow)
+    {
+        $this->flow = $flow;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFlow()
+    {
+        return $this->flow;
     }
 }
 

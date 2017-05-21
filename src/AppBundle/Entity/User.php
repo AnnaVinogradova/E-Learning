@@ -44,6 +44,11 @@ class User extends BaseUser
      */
     private $courses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\UserRequest", mappedBy="user")
+     */
+    private $requests;
+
 
     /**
      * Get id
@@ -101,5 +106,21 @@ class User extends BaseUser
     public function setCourses($courses)
     {
         $this->courses = $courses;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequests()
+    {
+        return $this->requests;
+    }
+
+    /**
+     * @param mixed $requests
+     */
+    public function setRequests($requests)
+    {
+        $this->requests = $requests;
     }
 }
