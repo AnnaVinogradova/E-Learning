@@ -99,8 +99,15 @@ class CourseController extends Controller
      */
     public function showAction(Course $course)
     {
+        $em = $this->getDoctrine()->getManager();
+        $openFlow = $em->getRepository('PortalBundle:Flow')->getOpenFlow($course);
+        if ($openFlow) {
+            $openFlow = $openFlow[0];
+        }
+
         return $this->render('course/show.html.twig', array(
             'course' => $course,
+            'openFlow' => $openFlow
         ));
     }
 
@@ -203,7 +210,7 @@ class CourseController extends Controller
 
         $courses = $em->getRepository('PortalBundle:Course')->findAll();
         return $this->render('course/userCourses.html.twig', array(
-            'courses' => $courses
+            'courses' => $user->getCourses()
         ));
     }
 

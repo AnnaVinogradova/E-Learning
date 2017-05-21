@@ -13,9 +13,9 @@
             <p>Price: {{ course.price }}$</p>
             <p>Duration: {{ course.duration }}</p>
             <div class="course-menu">
-                <p class=""><span class="glyphicon glyphicon-file"></span> Materials <span class="badge">5</span></p>
-                <p class=""><span class="glyphicon glyphicon-list-alt"></span> Tests <span class="badge">10</span><br></p>
-                <p class=""><span class="glyphicon glyphicon-book"></span> Homework <span class="badge">8</span></p>
+                <p class=""><span class="glyphicon glyphicon-file"></span> Materials <span class="badge">{{ course.materials|length }}</span></p>
+                <p class=""><span class="glyphicon glyphicon-list-alt"></span> Tests <span class="badge">{{ course.tests|length }}</span><br></p>
+                <p class=""><span class="glyphicon glyphicon-book"></span> Homework <span class="badge">{{ course.homeworks|length }}</span></p>
                 <p><span class="glyphicon glyphicon-comment"></span> Consultations: {% if course.price == 0 %}No{% else %}Yes{% endif %}</p>
                 <p><span class="glyphicon glyphicon-flag"></span> Certificate: {% if course.price == 0 %}No{% else %}Yes{% endif %}</p>
             </div>
@@ -24,6 +24,15 @@
             <a href="{{ path("courses_public") }}" class="col-md-offset-1 btn btn-primary">Back to list</a>
             {% if is_granted("ROLE_COMPANY") %}
                 <a href="{{ path("course_index") }}" class="col-md-offset-1 btn btn-primary">Back to my courses list</a>
+            {% endif %}
+            {% if course.price == 0 %}
+                <a href="{{ path("usercourse_new", {id: course.id}) }}" class="btn btn-success">Start course</a>
+            {% else %}
+                {% if openFlow %}
+                    <a href="" class="btn btn-primary">Send request for flow {{ openFlow.date|date('Y-m-d') }}</a>
+                {% else %}
+                    <a href="" class="btn btn-info">Subscribe to get notification when new flow will be open</a>
+                {% endif %}
             {% endif %}
         </div>
     </div>

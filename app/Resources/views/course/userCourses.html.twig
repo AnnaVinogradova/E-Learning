@@ -6,10 +6,10 @@
         {% for course in courses %}
             <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
                 <div class="thumbnail">
-                    <img src="/images/course_logo/{{ course.img }}">
+                    <img src="/images/course_logo/{{ course.course.img }}">
                     <div class="caption">
-                        <h2>{{ course.title }}</h2>
-                        <a class="btn btn-default" href="{{ path("course_for_student", {id: course.id}) }}">Continue learning</a>
+                        <h2>{{ course.course.title }}</h2>
+                        <a class="btn btn-default" href="{{ path("course_for_student", {id: course.course.id}) }}">Continue learning</a>
                     </div>
                 </div>
             </div>

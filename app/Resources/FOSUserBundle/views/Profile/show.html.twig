@@ -17,21 +17,15 @@
         </div>
     </div>
     <div class="row user-courses-list">
+    {% for course in user.courses %}
         <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
             <div class="thumbnail">
-                <img src="/images/course_logo/camera-keys.jpg">
+                <img src="/images/course_logo/{{ course.course.img }}">
                 <div class="caption">
-                    <h2><a href="">Photography</a></h2>
+                    <h2><a href="{{ path("course_for_student", {id:  course.course.id}) }}">{{ course.course.title }}</a></h2>
                 </div>
             </div>
         </div>
-        <div class="col-xs-6 col-sm-4 col-md-2 col-lg-2">
-            <div class="thumbnail">
-                <img src="/images/course_logo/math-1.jpg">
-                <div class="caption">
-                    <h2><a href="">Math - 1st grade</a></h2>
-                </div>
-            </div>
-        </div>
+    {% endfor %}
     </div>
 {% endblock body %}

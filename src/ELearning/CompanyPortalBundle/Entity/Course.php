@@ -87,6 +87,11 @@ class Course
      */
     private $tests;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\UserCourse", mappedBy="course")
+     */
+    private $usercourses;
+
 
     /**
      * Get id
@@ -312,6 +317,22 @@ class Course
     public function setTests($tests)
     {
         $this->tests = $tests;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsercourses()
+    {
+        return $this->usercourses;
+    }
+
+    /**
+     * @param mixed $usercourses
+     */
+    public function setUsercourses($usercourses)
+    {
+        $this->usercourses = $usercourses;
     }
 }
 
