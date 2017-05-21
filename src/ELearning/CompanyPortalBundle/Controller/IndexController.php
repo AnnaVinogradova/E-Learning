@@ -29,12 +29,26 @@ class IndexController extends Controller
         } elseif ($this->get('security.context')->isGranted('ROLE_TEACHER')) {
             return $this->redirectToRoute('teacher_profile');
         }
-            
+
         return $this->redirectToRoute('fos_user_profile_show');
     }
 
     public function teacherProfileAction()
     {
-        return $this->render('PortalBundle:Index:teacherProfile.html.twig');
+        return $this->render('PortalBundle:Index:teacherProfile.html.twig', array(
+            'teacher' => $this->getTeacher()
+        ));
+    }
+
+    private function getTeacher()
+    {
+        $user= $this->get('security.context')->getToken()->getUser();
+        if (! $this->get('security.context')->isGranted('ROLE_TEACHER')) {
+            throw $this->createAccessDeniedException();
+        }
+        $em = $this->getDoctrine()->getManager();
+        $teacher = $em->getRepository('PortalBundle:Teacher')->findOneByUser($user);
+
+        return $teacher;
     }
 }
