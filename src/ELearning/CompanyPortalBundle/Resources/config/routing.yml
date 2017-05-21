@@ -31,3 +31,11 @@ registration_cases:
 registration_company_reg:
     path:   /reg-company
     defaults: { _controller: "PortalBundle:Registration:register" }
+
+invite_teacher:
+    path:   /invite-teacher
+    defaults: { _controller: "PortalBundle:Registration:inviteTeacher" }
+
+confirm_registration:
+    path:   /confirm-reg/{token}
+    defaults: { _controller: "PortalBundle:Registration:confirmRegistration" }

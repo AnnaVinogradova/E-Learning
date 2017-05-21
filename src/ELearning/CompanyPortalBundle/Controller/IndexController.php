@@ -26,8 +26,10 @@ class IndexController extends Controller
     {
         if ($this->get('security.context')->isGranted('ROLE_COMPANY')) {
             return $this->redirectToRoute('company-profile');
+        } elseif ($this->get('security.context')->isGranted('ROLE_TEACHER')) {
+            return $this->redirectToRoute('teacher_profile');
         }
-        //return $this->redirectToRoute('teacher_profile');
+            
         return $this->redirectToRoute('fos_user_profile_show');
     }
 

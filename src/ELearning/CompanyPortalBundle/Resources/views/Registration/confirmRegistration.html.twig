@@ -1,0 +1,17 @@
+{% extends 'PortalBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+
+        <div class="col-md-offset-2 col-md-8 flow-creation">
+            <h1>Fill your new password</h1>
+            {{ form_start(form) }}
+            <div>
+                <label for="">Password</label>{{ form_widget(form.password, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            {{ form_widget(form.invite_token, { 'attr': {'class': 'form-control'} }) }}
+            <input class="btn btn-success col-md-2" type="submit" value="Accept invitation" />
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

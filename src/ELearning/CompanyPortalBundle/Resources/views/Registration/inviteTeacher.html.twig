@@ -1,0 +1,28 @@
+{% extends 'PortalBundle::layout.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+
+        <div class="col-md-offset-2 col-md-8 flow-creation">
+            <h1>Fill teacher data</h1>
+            {{ form_start(form) }}
+            <div>
+                <label for="">Email</label>{{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div>
+                <label for="">Full name</label>{{ form_widget(form.full_name, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div>
+                <label for="">Qualification</label>{{ form_widget(form.qualification, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div>
+                <label for="">Experience</label>{{ form_widget(form.experience, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <div>
+                <label for="">Contacts</label>{{ form_widget(form.contacts, { 'attr': {'class': 'form-control'} }) }}
+            </div>
+            <input class="btn btn-success col-md-2" type="submit" value="Send invitation" />
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

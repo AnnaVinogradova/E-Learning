@@ -76,6 +76,11 @@ class Company
      */
     private $courses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\Teacher", mappedBy="company")
+     */
+    private $teachers;
+
     public function __construct() {
         $this->vacancies = new ArrayCollection();
         $this->news = new ArrayCollection();
@@ -220,6 +225,22 @@ class Company
     public function getCourses()
     {
         return $this->courses;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTeachers()
+    {
+        return $this->teachers;
+    }
+
+    /**
+     * @param mixed $teachers
+     */
+    public function setTeachers($teachers)
+    {
+        $this->teachers = $teachers;
     }
 }
 
