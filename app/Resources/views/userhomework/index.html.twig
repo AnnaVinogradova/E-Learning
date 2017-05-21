@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>UserHomework list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Content</th>
+                <th>Comment</th>
+                <th>Checked</th>
+                <th>Mark</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for userHomework in userHomeworks %}
+            <tr>
+                <td><a href="{{ path('userhomework_show', { 'id': userHomework.id }) }}">{{ userHomework.id }}</a></td>
+                <td>{{ userHomework.content }}</td>
+                <td>{{ userHomework.comment }}</td>
+                <td>{% if entity.checked %}Yes{% else %}No{% endif %}</td>
+                <td>{{ userHomework.mark }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('userhomework_show', { 'id': userHomework.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('userhomework_edit', { 'id': userHomework.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('userhomework_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

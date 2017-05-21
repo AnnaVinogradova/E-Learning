@@ -40,6 +40,11 @@ class User extends BaseUser
     private $exams;
 
     /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\UserExam", mappedBy="user")
+     */
+    private $homeworks;
+
+    /**
      * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\UserCourse", mappedBy="user")
      */
     private $courses;
@@ -122,5 +127,21 @@ class User extends BaseUser
     public function setRequests($requests)
     {
         $this->requests = $requests;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHomeworks()
+    {
+        return $this->homeworks;
+    }
+
+    /**
+     * @param mixed $homeworks
+     */
+    public function setHomeworks($homeworks)
+    {
+        $this->homeworks = $homeworks;
     }
 }

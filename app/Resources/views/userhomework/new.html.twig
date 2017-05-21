@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+        <h1>{{  }}</h1>
+        <div class="flow-creation">
+            <div>
+                {{ tasks | raw }}
+            </div>
+            {{ form_start(form) }}
+            <div class="form-group">
+                <label>Write your answers</label>
+                {{ form_widget(form.content, { 'attr': {'class': 'form-control homework-area'} }) }}
+            </div>
+            <input class="btn btn-info col-md-1" type="submit" value="Create">
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

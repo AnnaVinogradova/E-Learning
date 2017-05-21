@@ -620,3 +620,22 @@ input[type=checkbox] {
     font-size: 1.5em;
     padding: 10px;
 }
+
+textarea.homework-area {
+    height: 300px !important;
+}
+
+.homework-tasks {
+    border: 1px solid #000;
+    margin: 20px;
+    padding: 20px;
+}
+
+.mark-area {
+    padding: 30px;
+}
+
+.mark-area p {
+    border: 1px solid #000;
+    border-radius: 15px;
+}

@@ -42,6 +42,11 @@ class Homework
     private $course;
 
     /**
+     * @ORM\OneToMany(targetEntity="ELearning\CompanyPortalBundle\Entity\UserHomework", mappedBy="homeworj")
+     */
+    private $userhomeworks;
+
+    /**
      * Get id
      *
      * @return int
@@ -113,6 +118,22 @@ class Homework
     public function setCourse($course)
     {
         $this->course = $course;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserhomeworks()
+    {
+        return $this->userhomeworks;
+    }
+
+    /**
+     * @param mixed $userhomeworks
+     */
+    public function setUserhomeworks($userhomeworks)
+    {
+        $this->userhomeworks = $userhomeworks;
     }
 }
 

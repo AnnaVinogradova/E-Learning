@@ -34,7 +34,7 @@
                     <h3><span class="glyphicon glyphicon-book"></span> Homework</h3>
                     <ul>
                     {% for homework in course.homeworks %}
-                        <li>{{ homework.name }}</li>
+                        <li><a href="{{ path("userhomework_new", {id: homework.id}) }}">{{ homework.name }}</a></li>
                     {% endfor %}
                     </ul>
                 </div>

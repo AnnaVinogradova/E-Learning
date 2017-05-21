@@ -1,3 +1,7 @@
+portal_user_homework:
+    resource: "@PortalBundle/Controller/UserHomeworkController.php"
+    type:     annotation
+
 portal_user_course:
     resource: "@PortalBundle/Controller/UserCourseController.php"
     type:     annotation

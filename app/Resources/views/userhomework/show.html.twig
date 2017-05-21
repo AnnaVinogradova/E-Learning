@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+        <h1>{{ userHomework.homework.name }}</h1>
+        <div class="flow-creation">
+            <div class="row">
+                {{ userHomework.homework.content | raw }}
+            </div>
+            Your answer:
+            <div class="row homework-tasks">
+                {{ userHomework.content }}
+            </div>
+            <p class="mark-area">
+                Mark: {% if userHomework.mark %}{{ userHomework.mark }}{% else %}Not checked{% endif %}
+                <br>Comment:
+                <p>
+                {% if userHomework.comment %}{{ userHomework.comment }}{% endif %}
+                </p>
+            </p>
+        </div>
+    </div>
+
+{% endblock %}
