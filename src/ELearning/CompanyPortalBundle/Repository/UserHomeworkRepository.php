@@ -10,4 +10,14 @@ namespace ELearning\CompanyPortalBundle\Repository;
  */
 class UserHomeworkRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getActiveHomeworks($ids)
+    {
+        $qb = $this->createQueryBuilder('uh');
+        $qb->where('uh.checked = 0')
+            ->andWhere('uh.homework IN (:ids)')
+            ->setParameter('ids', $ids);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

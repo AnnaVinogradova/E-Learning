@@ -35,8 +35,20 @@ class IndexController extends Controller
 
     public function teacherProfileAction()
     {
+        $teacher = $this->getTeacher();
+        foreach ($teacher->getCompany()->getCourses() as $course) {
+            $homeworks = $course->getHomeworks();
+            $ids = array();
+            foreach ($homeworks as $homework) {
+                $ids[] = $homework->getId();
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $course->activeHomeworks = $em->getRepository('PortalBundle:UserHomework')->getActiveHomeworks($ids);
+            $course->activeExams = $em->getRepository('PortalBundle:UserExam')->getActiveExams($course->getExam());
+        }
         return $this->render('PortalBundle:Index:teacherProfile.html.twig', array(
-            'teacher' => $this->getTeacher()
+            'teacher' => $teacher
         ));
     }
 

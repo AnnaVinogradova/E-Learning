@@ -639,3 +639,20 @@ textarea.homework-area {
     border: 1px solid #000;
     border-radius: 15px;
 }
+
+.teacher-course-img {
+    width: 100%;
+}
+
+.chat-link {
+    font-size: 3em;
+    padding: 50px;
+}
+
+.tabs {
+    margin-top: 20px;
+}
+
+.tab-pane {
+    padding: 20px;
+}

@@ -199,6 +199,31 @@ class CourseController extends Controller
     /**
      * Course entity for student.
      *
+     * @Route("/teacher/{id}", name="course_for_teacher")
+     * @Method("GET")
+     */
+    public function teacherCourseAction(Course $course)
+    {
+        $homeworks = $course->getHomeworks();
+        $ids = array();
+        foreach ($homeworks as $homework) {
+            $ids[] = $homework->getId();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $activeHomeworks = $em->getRepository('PortalBundle:UserHomework')->getActiveHomeworks($ids);
+        $activeExams = $em->getRepository('PortalBundle:UserExam')->getActiveExams($course->getExam());
+
+        return $this->render('course/teacherCourse.html.twig', array(
+            'course' => $course,
+            'homeworks' => $activeHomeworks,
+            'exams' => $activeExams
+        ));
+    }
+
+    /**
+     * Course entity for student.
+     *
      * @Route("/learn/list/courses", name="user_courses")
      * @Method("GET")
      */

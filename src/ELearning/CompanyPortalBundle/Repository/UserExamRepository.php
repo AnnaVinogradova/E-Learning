@@ -10,4 +10,15 @@ namespace ELearning\CompanyPortalBundle\Repository;
  */
 class UserExamRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getActiveExams($exam)
+    {
+        $qb = $this->createQueryBuilder('ue');
+        $qb->where('ue.finished = 1')
+            ->andWhere('ue.checked = 0')
+            ->andWhere('ue.exam = :id')
+            ->setParameter('id', $exam);
+
+        return $qb->getQuery()
+            ->getResult();
+    }
 }

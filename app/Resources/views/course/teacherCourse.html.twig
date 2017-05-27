@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ course.title }}</h1>
+    <div class="row user-courses-list crud-section">
+        <div class="row">
+            <div class="col-md-4">
+                <img class="teacher-course-img" src="/images/course_logo/{{ course.img }}" alt="">
+            </div>
+            <div class="col-md-4 chat-link">
+                <a href="">
+                    <span class="glyphicon glyphicon-comment"></span>
+                    Open chat
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="tabs col-md-offset-3 col-md-6">
+                <ul class="nav nav-tabs">
+
+                    <li class="active"><a href="#tab-1" data-toggle="tab">Homeworks ({{ homeworks|length }})</a></li>
+                    <li><a href="#tab-2" data-toggle="tab">Exams ({{ exams|length }})</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tab-1">
+                        <p>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Homework</th>
+                                    <th>User</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for homework in homeworks %}
+                                    <tr>
+                                        <td>{{ homework.homework.name }}</td>
+                                        <td>{{ homework.user.username }}</td>
+                                        <td>
+                                            <a class="btn btn-success" href="{{ path('course_show', { 'id': homework.id }) }}">Check</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </p>
+                    </div>
+                    <div class="tab-pane fade" id="tab-2">
+                        <p>
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Exam</th>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for exam in exams %}
+                                <tr>
+                                    <td>{{ exam.exam.name }}</td>
+                                    <td>{{ exam.user.username }}</td>
+                                    <td>{{ exam.startDate|date('Y-m-d H:i:s') }}</td>
+                                    <td>
+                                        <a class="btn btn-success" href="{{ path('course_show', { 'id': exam.id }) }}">Check</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
