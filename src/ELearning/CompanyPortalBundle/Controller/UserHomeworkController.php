@@ -3,6 +3,7 @@
 namespace ELearning\CompanyPortalBundle\Controller;
 
 use ELearning\CompanyPortalBundle\Entity\Homework;
+use ELearning\CompanyPortalBundle\Form\CheckHomeworkType;
 use ELearning\CompanyPortalBundle\Form\CreateUserHomeworkType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -101,15 +102,20 @@ class UserHomeworkController extends Controller
     public function editAction(Request $request, UserHomework $userHomework)
     {
         $deleteForm = $this->createDeleteForm($userHomework);
-        $editForm = $this->createForm(new UserHomeworkType(), $userHomework);
+        $editForm = $this->createForm(new CheckHomeworkType(), $userHomework);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $userHomework->setChecked(1);
             $em->persist($userHomework);
             $em->flush();
 
-            return $this->redirectToRoute('userhomework_edit', array('id' => $userHomework->getId()));
+            return $this->redirectToRoute('course_for_teacher',
+                array(
+                    'id' => $userHomework->getHomework()->getCourse()->getId()
+                )
+            );
         }
 
         return $this->render('userhomework/edit.html.twig', array(

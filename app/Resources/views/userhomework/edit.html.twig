@@ -1,21 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>UserHomework edit</h1>
-
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('userhomework_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+<div class="row crud-section">
+    <div class="flow-creation">
+        <h1>{{ userHomework.homework.name }}</h1>
+        <div>
+            {{ userHomework.homework.content | raw }}
+        </div>
+        <div>
+            {{ userHomework.content }}
+        </div>
+        {{ form_start(edit_form) }}
+        <div class="form-group">
+            <label>Write your comment: </label>
+            {{ form_widget(edit_form.comment, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <div class="form-group">
+            <label>Set a mark: </label>
+            {{ form_widget(edit_form.mark, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+        <input class="btn btn-info col-md-1" type="submit" value="Check">
+        {{ form_end(edit_form) }}
+    </div>
+</div>
 {% endblock %}

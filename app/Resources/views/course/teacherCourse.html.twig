@@ -38,7 +38,7 @@
                                         <td>{{ homework.homework.name }}</td>
                                         <td>{{ homework.user.username }}</td>
                                         <td>
-                                            <a class="btn btn-success" href="{{ path('course_show', { 'id': homework.id }) }}">Check</a>
+                                            <a class="btn btn-success" href="{{ path('userhomework_edit', { 'id': homework.id }) }}">Check</a>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -64,7 +64,7 @@
                                     <td>{{ exam.user.username }}</td>
                                     <td>{{ exam.startDate|date('Y-m-d H:i:s') }}</td>
                                     <td>
-                                        <a class="btn btn-success" href="{{ path('course_show', { 'id': exam.id }) }}">Check</a>
+                                        <a class="btn btn-success" href="{{ path('userexam_edit', { 'id': exam.id }) }}">Check</a>
                                     </td>
                                 </tr>
                             {% endfor %}

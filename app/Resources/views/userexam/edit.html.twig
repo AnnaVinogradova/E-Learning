@@ -1,21 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>UserExam edit</h1>
+    <div class="row crud-section">
+        <div class="flow-creation">
+            <h1>{{ userExam.exam.name }}</h1>
+            <div class="col-md-8">
+                {% for answer in userExam.answers  %}
+                    <div class="answer-exam">
+                            {{ answer.question.text }}
+                        <p>
+                            {{ answer.answer }}
+                        </p>
+                    </div>
+                {% endfor %}
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('userexam_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+            {{ form_start(edit_form) }}
+                <div class="form-group">
+                    <label>Check if user complete exam sucessfully:
+                    {{ form_widget(edit_form.status, { 'attr': {'class': 'form-control'} }) }}</label>
+                </div>
+                <input class="btn btn-info col-md-1" type="submit" value="Check">
+                {{ form_end(edit_form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

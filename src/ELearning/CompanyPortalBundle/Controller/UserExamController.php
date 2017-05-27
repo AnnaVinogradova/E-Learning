@@ -5,6 +5,7 @@ namespace ELearning\CompanyPortalBundle\Controller;
 use ELearning\CompanyPortalBundle\Entity\Course;
 use ELearning\CompanyPortalBundle\Entity\Exam;
 use ELearning\CompanyPortalBundle\Entity\ExamAnswer;
+use ELearning\CompanyPortalBundle\Form\CheckExamType;
 use ELearning\CompanyPortalBundle\Form\ExamAnswerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -160,15 +161,16 @@ class UserExamController extends Controller
     public function editAction(Request $request, UserExam $userExam)
     {
         $deleteForm = $this->createDeleteForm($userExam);
-        $editForm = $this->createForm(new UserExamType(), $userExam);
+        $editForm = $this->createForm(new CheckExamType(), $userExam);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $userExam->setChecked(1);
             $em->persist($userExam);
             $em->flush();
 
-            return $this->redirectToRoute('userexam_edit', array('id' => $userExam->getId()));
+            return $this->redirectToRoute('course_for_teacher', array('id' => $userExam->getExam()->getCourse()->getId()));
         }
 
         return $this->render('userexam/edit.html.twig', array(
