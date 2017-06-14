@@ -10,14 +10,16 @@
         </div>
         <div class="col-md-8">
             <div class="row">
+                {% if course.price != 0 %}
                 <a href="{{ path("flow_chat", {id: course.id}) }}">Open chat</a>
+                {% endif %}
             </div>
             <div class="row">
                 <div class="col-md-4">
                     <h3><span class="glyphicon glyphicon-file"></span> Materials</h3>
                     <ul>
                         {% for material in course.materials %}
-                            <li>{{ material.name }}</li>
+                            <li><a href="{{ path("material_show", {id:material.id})}}">{{  material.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

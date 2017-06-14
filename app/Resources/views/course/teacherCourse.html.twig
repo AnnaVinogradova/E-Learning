@@ -8,10 +8,12 @@
                 <img class="teacher-course-img" src="/images/course_logo/{{ course.img }}" alt="">
             </div>
             <div class="col-md-4 chat-link">
-                <a href="">
-                    <span class="glyphicon glyphicon-comment"></span>
-                    Open chat
-                </a>
+                {% if course.price != 0 %}
+                    <a href="{{ path("flow_chat", {id: course.id}) }}">
+                        <span class="glyphicon glyphicon-comment"></span>
+                        Open chat</a>
+                {% endif %}
+                <a href="{{ path("course_edit", {id:course.id}) }}">Manage course</a>
             </div>
         </div>
         <div class="row">

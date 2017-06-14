@@ -154,11 +154,18 @@ class HomeworkController extends Controller
     private function getCompany()
     {
         $user= $this->get('security.context')->getToken()->getUser();
-        if (! $this->get('security.context')->isGranted('ROLE_COMPANY')) {
+        if (! $this->get('security.context')->isGranted('ROLE_COMPANY') and ! $this->get('security.context')->isGranted('ROLE_TEACHER')) {
             throw $this->createAccessDeniedException();
         }
         $em = $this->getDoctrine()->getManager();
         $company = $em->getRepository('PortalBundle:Company')->findOneByOwner($user);
+
+        if ($this->get('security.context')->isGranted('ROLE_TEACHER')) {
+            $teacher = $em->getRepository('PortalBundle:Teacher')->findOneByUser($user);
+
+            $company = $teacher->getCompany();
+
+        }
 
         return $company;
     }

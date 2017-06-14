@@ -53,7 +53,7 @@ class UserHomeworkController extends Controller
 
         if ($userHomework) {
             return $this->redirectToRoute("userhomework_show", array(
-                'id' => $homework->getId()
+                'id' => $userHomework->getId()
             ));
         }
 

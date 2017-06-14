@@ -32,9 +32,11 @@
                     <span class="glyphicon glyphicon-flag"></span>
                     <a href="">Active Exams: <span class="badge">{{ course.activeExams|length }}</span></a></br>
                     <div class="row bottom">
-                        <a class="col-md-3">
+                        {% if course.price != 0 %}
+                        <a href="{{ path("flow_chat", {id: course.id}) }}" class="col-md-3">
                             <span class="glyphicon glyphicon-comment"></span>
                         </a>
+                            {% endif %}
                         <div class="col-md-9">
                                 <a href="{{ path("course_for_teacher", {id:course.id}) }}" class="btn btn-primary pull-right">Manage</a>
                         </div>

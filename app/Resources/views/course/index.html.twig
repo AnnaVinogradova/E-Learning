@@ -28,9 +28,7 @@
                     <td>
                         <a class="btn btn-primary" href="{{ path('course_show', { 'id': course.id }) }}">Show</a>
                         <a class="btn btn-warning" href="{{ path('course_edit', { 'id': course.id }) }}">Edit</a>
-                        {{ form_start(course.form, { 'attr': {'class': 'delete-action'} }) }}
-                        <input class="btn btn-danger" type="submit" value="Delete">
-                        {{ form_end(course.form) }}
+
                         <a href="{{ path("manage-requests", {id: course.id}) }}" class="btn btn-success">Manage requests</a>
                     </td>
                 </tr>

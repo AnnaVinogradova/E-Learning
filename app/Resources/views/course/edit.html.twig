@@ -4,7 +4,12 @@
     <div class="row crud-section">
         <h1>Course edit</h1>
         <div class="row">
-            <a class="col-md-offset-1 btn btn-link" href="{{ path('course_index') }}">Back to the list</a>
+            <a class="col-md-offset-1 btn btn-link" href="
+            {% if is_granted("ROLE_TEACHER") %}
+                {{ path('teacher_profile') }}">Back to the list</a>
+            {% else %}
+                {{ path('course_index') }}">Back to the list</a>
+            {% endif %}
         </div>
         <div class="row">
             {{ form_start(edit_form, { 'attr': {'class': 'col-md-offset-1 col-md-8'} }) }}
@@ -33,6 +38,7 @@
             {{ form_end(edit_form) }}
         </div>
         <div class="row"></div>
+        {% if course.price != 0 %}
         <div class="">
             <a class="btn btn-primary" href="{{ path('flow_new', {id: course.id}) }}">Add new flow</a>
             <table class="table table-bordered col-md-3">
@@ -56,7 +62,7 @@
                 </tbody>
             </table>
         </div>
-
+{% endif %}
         <div class="">
             <a class="btn btn-primary" href="{{ path('material_new', {id: course.id}) }}">Add new material</a>
             <table class="table table-bordered col-md-3">
@@ -86,7 +92,7 @@
                 </tbody>
             </table>
         </div>
-
+{% if course.price != 0 %}
         <div class="">
             <a class="btn btn-primary" href="{{ path('homework_new', {id: course.id}) }}">Add new homework</a>
             <table class="table table-bordered col-md-3">
@@ -115,6 +121,7 @@
                 </tbody>
             </table>
         </div>
+
         <div>
             {% if course.exam %}
                 <a class="btn btn-warning pull-right" href="{{ path('exam_edit', { 'id': course.exam.id }) }}">Edit exam</a>
@@ -122,6 +129,7 @@
                 <a class="btn btn-primary pull-right" href="{{ path('exam_new', { 'id': course.id }) }}">Create exam</a>
             {% endif %}
         </div>
+{% endif %}
         <div class="">
             <a class="btn btn-primary" href="{{ path('test_new', {id: course.id}) }}">Add new test</a>
             <table class="table table-bordered col-md-3">

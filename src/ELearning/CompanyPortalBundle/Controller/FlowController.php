@@ -2,6 +2,7 @@
 
 namespace ELearning\CompanyPortalBundle\Controller;
 
+use ELearning\CompanyPortalBundle\Entity\Chat;
 use ELearning\CompanyPortalBundle\Entity\Course;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -42,8 +43,12 @@ class FlowController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $chat = new Chat();
+            $chat->setFlow($flow);
+            $chat->setName('flow chat');
             $flow->setCourse($course);
             $em->persist($flow);
+            $em->persist($chat);
             $em->flush();
 
             return $this->redirectToRoute('course_edit', array('id' => $course->getId()));
@@ -102,11 +107,19 @@ class FlowController extends Controller
     private function getCompany()
     {
         $user= $this->get('security.context')->getToken()->getUser();
-        if (! $this->get('security.context')->isGranted('ROLE_COMPANY')) {
+        if (! $this->get('security.context')->isGranted('ROLE_COMPANY') and ! $this->get('security.context')->isGranted('ROLE_TEACHER')) {
             throw $this->createAccessDeniedException();
         }
         $em = $this->getDoctrine()->getManager();
         $company = $em->getRepository('PortalBundle:Company')->findOneByOwner($user);
+
+
+        if ($this->get('security.context')->isGranted('ROLE_TEACHER')) {
+            $teacher = $em->getRepository('PortalBundle:Teacher')->findOneByUser($user);
+
+            $company = $teacher->getCompany();
+
+        }
 
         return $company;
     }

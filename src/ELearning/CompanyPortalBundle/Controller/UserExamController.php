@@ -140,6 +140,11 @@ class UserExamController extends Controller
                 ));
             }
         } else {
+            if ($userExam->getChecked()) {
+                return $this->render('userexam/result.html.twig', array(
+                    'result' => $userExam->getStatus()
+                ));
+            }
                 return $this->render('userexam/finish.html.twig');
         }
 

@@ -670,3 +670,7 @@ textarea.homework-area {
     list-style-type: none;
     border-bottom: 1px dotted darkgray;
 }
+
+.company-list a {
+    color: #0f74a8;
+}
