@@ -85,6 +85,20 @@ class FlowController extends Controller
         ));
     }
 
+    /**
+    *
+    * @Route("/{id}/chat/view", name="flow_chat")
+    */
+    public function chatAction(Course $course)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        return $this->render('flow/chat.html.twig', array(
+            'flow' => $em->getRepository('PortalBundle:Flow')->getOpenFlow($course)[0],
+
+        ));
+    }
+
     private function getCompany()
     {
         $user= $this->get('security.context')->getToken()->getUser();

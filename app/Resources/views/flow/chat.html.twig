@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row crud-section">
+        <h1>{{ flow.chat.name }}</h1>
+    </div>
+
+    <div id="content" class="container field">
+                    <div class="row">
+                            <form name="number_form" action="">
+                                    <input name="number" type="text">
+                                    <input class="btn btn-primary" name="send_number" value="Send" type="submit">
+                                </form>
+                        </div>
+
+                    <div class="row">
+                            <ul id="messages" class="col-md-10 col-md-offset-1">
+                                {% for message in flow.chat.messages %}
+                                    <li>User {{ message.user}} wrote: {{ message.text }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/goswebsocket/js/gos_web_socket_client.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/goswebsocket/js/vendor/autobahn.min.js') }}"></script>
+
+    <script>
+        var list = document.getElementById('messages');
+
+                    var webSocket = WS.connect("ws://localhost:1111");
+
+                    webSocket.on("socket/connect", function(session){
+                            console.log('Start web socket');
+                            session.subscribe("app/game/{{ flow.id }}", function(uri, payload){
+                                    li = document.createElement("li");
+                                    li.appendChild(document.createTextNode(payload.msg));
+                                    list.insertBefore(li, list.firstChild);
+                                });
+                                    document.number_form.addEventListener("submit", function(e){
+                                        number = document.number_form.number.value;
+                                        session.publish("app/game/{{ flow.id }}", number);
+
+                                        e.preventDefault();
+                                    });
+
+                                });
+
+        webSocket.on("socket/disconnect", function(error){
+                //error provides us with some insight into the disconnection: error.reason and error.code
+                        console.log("Disconnected for " + error.reason + " with code " + error.code);
+            });
+    </script>
+{% endblock javascripts %}

@@ -19,7 +19,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "doctrine/doctrine-migrations-bundle": "^1.0",
-        "egeloen/ckeditor-bundle": "^5.0"
+        "egeloen/ckeditor-bundle": "^5.0",
+        "gos/web-socket-bundle": "^1.8"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

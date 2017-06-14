@@ -1,0 +1,7 @@
+portal_topic_chat:
+    channel: app/game/{room}
+    handler:
+        callback: 'topic.chat' #Относится к getName, а не к имени сервиса
+    requirements:
+        room:
+            pattern: "\d+"

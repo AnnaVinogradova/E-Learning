@@ -656,3 +656,17 @@ textarea.homework-area {
 .tab-pane {
     padding: 20px;
 }
+
+#messages {
+    background: white;
+    padding: 15px;
+    height: 600px;
+    overflow: scroll;
+}
+
+#messages li {
+    margin: 15px 20px;
+    padding: 5px;
+    list-style-type: none;
+    border-bottom: 1px dotted darkgray;
+}

@@ -44,6 +44,11 @@ class Flow
      */
     private $usercourses;
 
+    /**
+     * @ORM\OneToOne(targetEntity="ELearning\CompanyPortalBundle\Entity\Chat", mappedBy="flow")
+     */
+    private $chat;
+
 
     /**
      * Get id
@@ -117,6 +122,22 @@ class Flow
     public function setUsercourses($usercourses)
     {
         $this->usercourses = $usercourses;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChat()
+    {
+        return $this->chat;
+    }
+
+    /**
+     * @param mixed $chat
+     */
+    public function setChat($chat)
+    {
+        $this->chat = $chat;
     }
 }
 

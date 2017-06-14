@@ -7,3 +7,11 @@ services:
       class: ELearning\CompanyPortalBundle\Form\CompanyRegistrationType
       tags:
          -  { name: form.type }
+
+   portal_topic_chat:
+      class: ELearning\CompanyPortalBundle\Topic\ChatTopic
+      arguments:
+         - @doctrine.orm.default_entity_manager
+         - @gos_web_socket.websocket.client_manipulator
+      tags:
+         - { name: gos_web_socket.topic }
